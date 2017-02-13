@@ -1,0 +1,9 @@
+*.log
+*.swp
+
+logs
+data/results
+
+node_modules
+dist
+.vscode

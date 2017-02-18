@@ -459,6 +459,10 @@ Trie.prototype = {
             this.cache.push( next );
             node = next;
         }
+        if (Math.random() > 0.99){
+            console.log(`inserted word: ${word}`);
+        }
+        
 
         node.final = true;
         this.previousWord = word;

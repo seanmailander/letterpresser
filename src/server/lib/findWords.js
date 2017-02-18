@@ -1,6 +1,4 @@
-import trie from './trie';
-import lperInit from './letterpresser-init';
-
+import getTrie from './initializeData';
 
 // Really fast array search
 function inObject(arr, search) {
@@ -31,27 +29,20 @@ class AnagramResults {
 export default function findWords(letters) {
   const currentResults = new AnagramResults();
 
-  if (typeof (lperInit.dictionary) === 'undefined' || typeof (trie.dictionary) === 'undefined') {
-    lperInit.init();
-    trie.dictionary = lperInit.dictionary;
-  }
+  const trie = getTrie();
 
   // Recursive search through trie
   const checkRemaining = (knownLetters, remLetters) => {
-    let isPrefix = false;
-    let isWord = false;
     let curWord = '';
     let checkedLetterCache = '';
     for (let i = 0, l = remLetters.length; i < l; i++) {
       if (checkedLetterCache.indexOf(remLetters[i]) !== -1) { continue; }
       checkedLetterCache += remLetters[i];
       curWord = knownLetters + remLetters[i];
-      isPrefix = trie.isTriePrefix(curWord);
-      if (isPrefix) {
-        isWord = trie.isTrieWord(curWord);
-        if (isWord) { currentResults.addToResults(curWord); } // console.log(curWord); //console.log ("found a word: %j", curWord);
-        checkRemaining(curWord, remLetters.slice(0, i) + remLetters.slice(i + 1));
-      }
+      if (trie.lookup(curWord)) {
+        currentResults.addToResults(curWord);
+      } // console.log(curWord); //console.log ("found a word: %j", curWord);
+      checkRemaining(curWord, remLetters.slice(0, i) + remLetters.slice(i + 1));
     }
   };
   // With dictionary and letters, iterate through to check each word

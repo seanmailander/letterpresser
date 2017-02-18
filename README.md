@@ -1,30 +1,34 @@
 # letterpresser
-=============
 
 Suggests moves for Letterpress games (an opportunity to learn node.js capabilities)
 
 # Pieces of the puzzle
 
-Files:
+Files from upstream:
 
-* ./dict/ - Dictionaries
+* ./data/ - Dictionaries
 
-        custom.js - contains occasional verbose terms
-        ?letterpress.js - contains (supposed) Letterpress dictionary (CSW12+ENABLE2K)
-        ?custom.freq.js - contains ngram for custom
-        ?letterpress.freq.js - contains ngram for letterpress
+        ods5.txt - Official Scrabble Dictionary
+        ospd3.txt - Official Scrabble Players Dictionary
+        sowpods.txt - Collins Scrabble Words
+        twl06.txt - Offical Scrabble word list
+        twl98.txt - Offical Scrabble word list
+        
 
+* ./src/server/lib/ - Stand-alone modules
 
-* ./trie/ - JS Trie library (John Resig)
+        Bits.sthanov.js - (Stephen Hanov's Succinct Trie for Javascript)[http://www.hanovsolutions.com/trie/Bits.js]
 
-        utils.js - !todo!link to his repo
-        Bits.js
+# Resources
 
+http://stevehanov.ca/blog/index.php?id=120
+https://github.com/jeresig/trie-js
+http://ejohn.org/blog/javascript-trie-performance-analysis/
+https://github.com/fogleman/TWL06/blob/master/twl.py
+https://raw.githubusercontent.com/jessicatysu/scrabble/master/TWL06.txt
+https://github.com/rspeer/solvertools/tree/master/data/wordlists/raw
+https://www.wordgamedictionary.com/twl06/download/twl06.txt
+https://github.com/neilk/wordfrequencies
+http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
+https://github.com/quackle/quackle/tree/master/data/raw_lexica
 
-* ./
-
-        getmoves.js - Generates all valid moves for given board
-        ?bestmoves.js - Chooses best move for specific game state
-        ?letterpresser.js - Main interface to load games, check moves
-
-? - files are yet to be comitted (ie messier than the rest)

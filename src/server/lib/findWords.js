@@ -1,33 +1,10 @@
-import getTrie from './initializeData';
-
-// Really fast array search
-function inObject(arr, search) {
-  let len = arr.length;
-  while (len--) {
-    if (arr[len] === search) { return true; }
-  }
-  return false;
-}
-
-// Custom results object, for each word length, an array of valid anagrams
-class AnagramResults {
-  results = {};
-
-  addToResults(word) {
-    const letterCount = word.length;
-    if (typeof (this.results[letterCount]) === 'undefined') this.results[letterCount] = [];
-    if (!inObject(this.results[letterCount], word)) { this.results[letterCount].push(word); }
-  }
-
-  getResults() {
-    return this.results;
-  }
-}
+import { getTrie, getFlatWordList } from './initializeData';
+import { getWordsForBoardFromDictionary } from '../lib/BigFlatWordList';
 
 
 // Primary entry point for anagram finding
-export default function findWords(letters) {
-  const currentResults = new AnagramResults();
+export function findWordsInTrie(letters) {
+  const currentResults = [];
 
   const trie = getTrie();
 
@@ -41,7 +18,7 @@ export default function findWords(letters) {
       curWord = knownLetters + remLetters[i];
       if (trie.isPrefix(curWord)) {
         if (trie.lookup(curWord)) {
-          currentResults.addToResults(curWord);
+          currentResults.push(curWord);
         } // console.log(curWord); //console.log ("found a word: %j", curWord);
         checkRemaining(curWord, remLetters.slice(0, i) + remLetters.slice(i + 1));
       }
@@ -49,6 +26,13 @@ export default function findWords(letters) {
   };
   // With dictionary and letters, iterate through to check each word
   checkRemaining('', letters.split('').sort().join(''));
+  console.log(`Found ${currentResults.length} words`);
+  return [...new Set(currentResults)];
+}
 
-  return currentResults.getResults();
+export function findWordsInFlatList(letters) {
+  const flatWordList = getFlatWordList();
+  const foundWords = getWordsForBoardFromDictionary(letters, flatWordList);
+  console.log(`Found ${foundWords.length} words`);
+  return foundWords;
 }

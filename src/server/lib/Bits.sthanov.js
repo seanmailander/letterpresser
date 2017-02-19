@@ -662,6 +662,44 @@ FrozenTrie.prototype = {
     }
 };
 
+
+function convertWordsToTrie(words) {
+  console.log('dictionary loading');
+  const start = Date.now();
+
+  // create a trie
+  const trie = new Trie();
+
+    // Trie insertion is optimized for alphabetically-sorted words
+  words.sort();
+
+  console.log(`dictionary length: ${words.length}`);
+    // To save space, our encoding handles only the letters a-z. Ignore
+    // words that contain other characters.
+  const regex = /^[a-z]+$/;
+  words
+      .map(word => word.toLowerCase())
+      .filter(word => word.match(regex))
+      .map(word => trie.insert(word));
+
+  console.log('inserted all words');
+    // Encode the trie.
+  const trieData = trie.encode();
+  console.log('encoded trie');
+    // Encode the rank directory
+  const directory = RankDirectory.Create(trieData, (trie.getNodeCount() * 2) + 1, L1, L2);
+  console.log('created directory');
+
+  const returnValue = { trie: trieData, directory: directory.getData(), nodeCount: trie.getNodeCount() };
+
+  console.log(`Encoded ${words.join('').length} bytes to ${trieData.length} bytes.`);
+
+  const end = Date.now();
+  console.log('dictionary loaded: %j', end - start);
+
+  return returnValue;
+}
+
 /**************************************************************************************************
   DEMONSTATION APPLICATION FUNCTIONS
   *************************************************************************************************/

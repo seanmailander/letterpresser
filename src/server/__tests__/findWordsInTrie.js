@@ -1,14 +1,29 @@
 /* eslint-disable arrow-body-style, no-unused-expressions, func-names, prefer-arrow-callback */
-import _ from 'lodash';
 import { expect } from 'chai';
 
-import getTrie from '../lib/initializeData';
+import { findWordsInTrie } from '../lib/findWords';
+import { getTrie } from '../lib/initializeData';
 
-
-export default function findAllWordsInTrie() {
+export default function findWordsInTrieTest() {
   const trie = getTrie();
 
   describe('findWordsInTrie', function () {
+    it('finds at least one word', function () {
+      const board = 'batter';
+      const foundWords = findWordsInTrie(board);
+
+      expect(foundWords).to.be.an('array');
+
+      const flattenedWords = [].concat(
+        ...Object.keys(foundWords)
+            .filter(wordLength => wordLength >= 3)
+            .sort(wordLength => wordLength)
+            .map(wordLength => foundWords[wordLength]),
+      );
+
+      expect(flattenedWords).to.have.length.of.at.least(1);
+    });
+
     it('find a valid prefix', function () {
       // const board = 'abcdeabcdeabcdeabcde';
 

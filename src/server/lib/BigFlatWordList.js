@@ -1,9 +1,4 @@
-import lazy from 'lazy';
-
-
-function getCanonical(s) {
-  return s.replace(/\W/g, '').split('').sort().join('');
-}
+import { getCanonical } from '../../common/util';
 
 function isSubset(iStr, jStr) {
   let i = 0;

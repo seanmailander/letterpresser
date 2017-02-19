@@ -1,8 +1,5 @@
-export function range(size) { return [...Array(size).keys()]; }
-
-export function randBetween(min, max) {
-  return Math.floor((Math.random() * ((max - min) + 1)) + min);
-}
+import { range, randBetween } from './util';
+import { getValidMovesFromWord } from './boardOperations';
 
 export function randomMoves() {
   const numberOfMoves = 10;
@@ -18,4 +15,13 @@ export function randomMoves() {
 export function randomGameBoard() {
   const boardSize = 25;
   return range(boardSize).map(() => String.fromCharCode(randBetween(65, 90))).join('');
+}
+
+export function randomMovesFromWords(board, words) {
+  const numberOfMoves = 100;
+  const moves = range(numberOfMoves)
+    .map(() => words[randBetween(0, words.length)])
+    .map(word => getValidMovesFromWord(board, word))
+    .map(validMoves => validMoves[0]);
+  return [...new Set(moves)];
 }

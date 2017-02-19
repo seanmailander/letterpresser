@@ -7,7 +7,7 @@ class Moves extends Component {
     // each move is a comma-concatenated string of letter positions
 
     // Extract all words from stream
-    const words = moveStream.map(currentMove => currentMove.split(',').map(boardPosition => board[boardPosition]));
+    const words = moveStream.map(currentMove => currentMove.split(',').map(boardPosition => board[boardPosition]).join(''));
     return words;
   }
 

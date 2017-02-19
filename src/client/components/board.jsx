@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { range } from '../helpers/mockData';
+import { range } from '../../common/util';
 
 const LetterState = {
   Unclaimed: 1,

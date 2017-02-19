@@ -1,10 +1,11 @@
 import React from 'react';
+import Promise from 'bluebird';
 
 import Board from './board';
 import Moves from './moves';
 import Controls from './controls';
 
-import { randomizeGameBoard, randomMoves, randomMovesFromWords } from '../helpers/mockData';
+import { randomizeGameBoard, randomMoves, randomMovesFromWords } from '../../common/mockData';
 
 import { getRandomGame, getWordsForGame } from '../services/letterpresser';
 
@@ -35,12 +36,23 @@ class App extends React.Component {
       });
   }
 
+  useBoard = (boardString) => {
+    Promise.resolve()
+      .then(() => [boardString, getWordsForGame(boardString)])
+      .spread((board, words) => {
+        this.setState({
+          board,
+          moveStream: randomMovesFromWords(board, words),
+        });
+      });
+  }
+
   render() {
     const { board, moveStream } = this.state;
 
     return (
       <div className='appContainer'>
-        <Controls onRandomize={ this.newRandomGame } />
+        <Controls onRandomize={ this.newRandomGame } onUseBoard={ this.useBoard } />
         <Board board={ board } moveStream={ moveStream } />
         <Moves board={ board } moveStream={ moveStream } />
       </div>

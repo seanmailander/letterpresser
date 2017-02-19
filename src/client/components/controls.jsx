@@ -2,23 +2,31 @@
 import React, { Component, PropTypes } from 'react';
 
 class Controls extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: 'abcdeabcdeabcdeabcdeabcde' };
+  }
+
+  handleChange = (event) => {
+    this.setState({ value: event.target.value });
+  }
+
   render() {
-    const { onRandomize } = this.props;
+    const { onRandomize, onUseBoard } = this.props;
+    const useBoard = () => {
+      onUseBoard(this.state.value.toUpperCase());
+    };
+    
     return (
       <div className='gameControls'>
-        <div className='input-group'>
-          <input
-            className='form-control' name='gameboard'
-            type='text' placeholder='Enter 25-charecter game board' maxLength='25'
-          />
-          <span className='input-grou-btn'>
-            <button className='btn btn-primary'>Go!</button>
-          </span>
-        </div>
-        <div className='btn-group'>
-          <button className='btn btn-info' onClick={ onRandomize }>Randomize</button>
-          <button className='btn btn-default'>Clear</button>
-        </div>
+        <input
+          className='form-control' name='gameboard'
+          value={ this.state.value }
+          onChange={ this.handleChange }
+          type='text' placeholder='Enter 25-charecter game board' maxLength='25'
+        />
+        <button className='btn btn-primary' onClick={ useBoard }>Go!</button>
+        <button className='btn btn-info' onClick={ onRandomize }>Randomize</button>
       </div>
     );
   }
@@ -26,6 +34,7 @@ class Controls extends Component {
 
 Controls.propTypes = {
   onRandomize: PropTypes.func.isRequired,
+  onUseBoard: PropTypes.func.isRequired,
 };
 
 export default Controls;

@@ -1,9 +1,6 @@
-*.log
-*.swp
-
-logs
-data/results
-
 node_modules
 dist
 .vscode
+data
+
+*.log

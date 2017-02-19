@@ -1,7 +1,7 @@
 
 import { findWordsInTrie, findWordsInFlatList } from '../lib/findWords';
 
-import { randomGameBoard } from '../lib/mockData';
+import { randomGameBoard } from '../../common/mockData';
 
 export const getRandomGameBoard = () => randomGameBoard();
 

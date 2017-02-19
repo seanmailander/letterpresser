@@ -19,9 +19,11 @@ export function randomGameBoard() {
 
 export function randomMovesFromWords(board, words) {
   const numberOfMoves = 100;
-  const moves = range(numberOfMoves)
-    .map(() => words[randBetween(0, words.length)])
-    .map(word => getValidMovesFromWord(board, word))
-    .map(validMoves => validMoves[0]);
-  return [...new Set(moves)];
+  const chosenWords = range(numberOfMoves)
+    .map(() => words[randBetween(0, words.length - 1)]);
+  const uniqueChosenWords = [...new Set(chosenWords)];
+
+  const validMovesForWords = uniqueChosenWords
+    .map(word => getValidMovesFromWord(board, word));
+  return validMovesForWords.map(validMoves => validMoves[0]);
 }

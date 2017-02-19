@@ -4,10 +4,10 @@ import React, { Component, PropTypes } from 'react';
 class Moves extends Component {
   static getWordsFromMoveStream(board, moveStream) {
     // moveStream is an array of valid moves
-    // each move is a comma-concatenated string of letter positions
+    // each move is an array letter positions
 
     // Extract all words from stream
-    const words = moveStream.map(currentMove => currentMove.split(',').map(boardPosition => board[boardPosition]).join(''));
+    const words = moveStream.map(currentMove => currentMove.map(boardPosition => board[boardPosition]).join(''));
     return words;
   }
 
@@ -34,7 +34,7 @@ class Moves extends Component {
 
 Moves.propTypes = {
   board: PropTypes.string.isRequired,
-  moveStream: PropTypes.arrayOf(PropTypes.string).isRequired,
+  moveStream: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
 };
 
 export default Moves;

@@ -18,5 +18,21 @@ export function cartesianProduct(arrayOfArrays) {
   return arrayOfArrays.reduce(reducer, initialValue);
 }
 
+export function getCanonicalFromMove(move) {
+  return move.reduce((result, currIndex) => result + (2 ** currIndex), 0);
+}
+
+export function uniqBy(a, key) {
+  const seen = {};
+  return a.filter((item) => {
+    const k = key(item);
+    return seen[k] ? false : (seen[k] = true);
+  });
+}
+
+export function arrayIsUnique(arr) {
+  return arr.length === new Set(arr).size;
+}
+
 export function difference(setA, setB) { return new Set([...setA].filter(x => !setB.has(x))); }
 export function symmetricDifference(setA, setB) { return new Set([...[...difference(setA, setB)], ...[...difference(setB, setA)]]); }

@@ -51,7 +51,7 @@ class Board extends Component {
       // Map this move onto board positions
       return accumulator.map((currentPositionValue, currentPosition) => {
         // Current move contains this board position
-        const isPartOfCurrentMove = currentMove.split(',').indexOf(`${currentPosition}`) !== -1;
+        const isPartOfCurrentMove = currentMove.includes(currentPosition);
         // Apply new owner of board position
         return !isPartOfCurrentMove ? currentPositionValue :
             isPlayer1 ? LetterState.Player1 :
@@ -89,7 +89,7 @@ class Board extends Component {
 
 Board.propTypes = {
   board: PropTypes.string.isRequired,
-  moveStream: PropTypes.arrayOf(PropTypes.string).isRequired,
+  moveStream: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
 };
 
 export default Board;

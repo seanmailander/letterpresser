@@ -96,8 +96,8 @@ export function getFlatWordList() {
   return flatWords;
 }
 
-//curl https://www.wordgamedictionary.com/sowpods/download/sowpods.txt -o data/sowpods.txt
-//curl https://raw.githubusercontent.com/quackle/quackle/master/data/raw_lexica/twl98.raw -o ./data/twl98.txt
-//curl https://raw.githubusercontent.com/quackle/quackle/master/data/raw_lexica/ods5.raw -o ./data/ods5.txt
+// curl https://www.wordgamedictionary.com/sowpods/download/sowpods.txt -o data/sowpods.txt
+// curl https://raw.githubusercontent.com/quackle/quackle/master/data/raw_lexica/twl98.raw -o ./data/twl98.txt
+// curl https://raw.githubusercontent.com/quackle/quackle/master/data/raw_lexica/ods5.raw -o ./data/ods5.txt
 // curl http://www.hanovsolutions.com/trie/ospd3.txt -o ./data/ospd3.txt
 // curl https://www.wordgamedictionary.com/twl06/download/twl06.txt -o twl06.txt

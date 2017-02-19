@@ -31,7 +31,9 @@
     "watch": "webpack -w",
     "start": "webpack-dev-server --config src/client/webpack.config.client.babel.js",
     "serve-dev": "nodemon --delay 500ms --watch dist \"./dist/server/js/server.js\"",
-    "serve": "node dist/server/js/server.js"
+    "serve": "node dist/server/js/server.js",
+    "test": "mocha ./src/__tests__/index.js --require babel-core/register",
+    "test-watch": "mocha ./src/__tests__/index.js --require babel-core/register --watch"
   },
   "devDependencies": {
     "babel-core": "6.22.1",
@@ -42,6 +44,7 @@
     "babel-preset-react": "6.22.0",
     "babel-preset-stage-0": "^6.22.0",
     "bluebird": "^3.4.7",
+    "chai": "^3.5.0",
     "copy-webpack-plugin": "^4.0.1",
     "cors": "^2.8.1",
     "eslint": "3.15.0",
@@ -50,6 +53,7 @@
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.9.0",
+    "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "serve-index": "^1.8.0",
     "superagent": "^3.4.1",

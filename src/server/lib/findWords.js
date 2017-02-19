@@ -39,14 +39,16 @@ export default function findWords(letters) {
       if (checkedLetterCache.indexOf(remLetters[i]) !== -1) { continue; }
       checkedLetterCache += remLetters[i];
       curWord = knownLetters + remLetters[i];
-      if (trie.lookup(curWord)) {
-        currentResults.addToResults(curWord);
-      } // console.log(curWord); //console.log ("found a word: %j", curWord);
-      checkRemaining(curWord, remLetters.slice(0, i) + remLetters.slice(i + 1));
+      if (trie.isPrefix(curWord)) {
+        if (trie.lookup(curWord)) {
+          currentResults.addToResults(curWord);
+        } // console.log(curWord); //console.log ("found a word: %j", curWord);
+        checkRemaining(curWord, remLetters.slice(0, i) + remLetters.slice(i + 1));
+      }
     }
   };
   // With dictionary and letters, iterate through to check each word
-  checkRemaining('', letters);
+  checkRemaining('', letters.split('').sort().join(''));
 
   return currentResults.getResults();
 }

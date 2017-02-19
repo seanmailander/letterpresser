@@ -632,6 +632,32 @@ FrozenTrie.prototype = {
         }
 
         return node.final;
+    },
+
+    /**
+      Look-up a prefix in the trie. Returns true if and only if the prefix exists
+      in the trie.
+      */
+    isPrefix: function( word ) 
+    {
+        var node = this.getRoot();
+        for ( var i = 0; i < word.length; i++ ) {
+            var child;
+            var j = 0;
+            let childCount = node.getChildCount();
+            for ( ; j < childCount; j++ ) {
+                child = node.getChild( j );
+                if ( child.letter === word[i] ) {
+                    break;
+                }
+            }
+            if ( j === childCount ) {
+                return false;
+            }
+            node = child;
+        }
+
+        return true;
     }
 };
 

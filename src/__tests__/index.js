@@ -5,7 +5,7 @@ import findWordsInFlatList from '../server/__tests__/findWordsInFlatList';
 
 describe('Testing', function () {
   describe('passes integration tests', function () {
-    findWordsInTrieTest();
+    //findWordsInTrieTest();
     findWordsInFlatList();
   });
 });

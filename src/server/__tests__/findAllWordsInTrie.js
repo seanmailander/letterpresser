@@ -7,7 +7,7 @@ import findWords from '../lib/findWords';
 export default function findAllWordsInTrie() {
   describe('findWordsInTrie', function () {
     it('finds at least one word', function () {
-      const board = 'batte';
+      const board = 'batter';
       const foundWords = findWords(board);
 
       expect(foundWords).to.be.an('object');

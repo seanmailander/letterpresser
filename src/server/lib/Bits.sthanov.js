@@ -618,14 +618,15 @@ FrozenTrie.prototype = {
         for ( var i = 0; i < word.length; i++ ) {
             var child;
             var j = 0;
-            for ( ; j < node.getChildCount(); j++ ) {
+            let childCount = node.getChildCount();
+            for ( ; j < childCount; j++ ) {
                 child = node.getChild( j );
                 if ( child.letter === word[i] ) {
                     break;
                 }
             }
 
-            if ( j === node.getChildCount() ) {
+            if ( j === childCount ) {
                 return false;
             }
             node = child;

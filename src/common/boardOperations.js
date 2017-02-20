@@ -1,5 +1,9 @@
 import { cartesianProductWithoutDuplicates, getCanonicalFromMove } from './util';
 
+export function getWordFromBoardPositions(board, positions) {
+  return positions.map(boardPosition => board[boardPosition]).join('');
+}
+
 export function getValidMovesFromWord(board, word) {
   // board is a string of 25 characters
   // word is a string of 3-25 characters
@@ -16,6 +20,6 @@ export function getValidMovesFromWord(board, word) {
     .map(letter => getBoardIndexesOfLetter(letter));
 
   const moves = cartesianProductWithoutDuplicates(boardPositionsWithMatchingLetters, getCanonicalFromMove);
-
+  
   return moves;
 }

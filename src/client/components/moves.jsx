@@ -1,14 +1,15 @@
 
 import React, { Component, PropTypes } from 'react';
 
+import { getWordFromBoardPositions } from '../../common/boardOperations';
+
 class Moves extends Component {
   static getWordsFromMoveStream(board, moveStream) {
     // moveStream is an array of valid moves
     // each move is an array letter positions
 
     // Extract all words from stream
-    const words = moveStream.map(currentMove => currentMove.map(boardPosition => board[boardPosition]).join(''));
-    return words;
+    return moveStream.map(getWordFromBoardPositions);
   }
 
   static generateMoveComponents(words) {

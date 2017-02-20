@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style, no-unused-expressions, func-names, prefer-arrow-callback */
 import { expect } from 'chai';
 
-import { getValidMovesFromWord } from '../boardOperations';
+import { getValidMovesFromWord, getWordFromBoardPositions } from '../boardOperations';
 import { symmetricDifference, getCanonicalFromMove } from '../util';
 import { randomGameBoard } from '../mockData';
 import { findWordsInFlatList } from '../../server/lib/findWords';
@@ -18,6 +18,15 @@ export default function validMoves() {
   const inefficientWords = findWordsInFlatList(inefficientBoard);
 
   describe('generateValidMoves', function () {
+    it('finds valid moves in correct order', function () {
+      const board = 'bana';
+      const word = 'ban';
+
+      const foundMoves = getValidMovesFromWord(board, word);
+
+      expect(foundMoves).to.be.an('array');
+      foundMoves.map(move => expect(getWordFromBoardPositions(board, move)).to.equal(word));
+    });
     it('finds all valid moves for simple board', function () {
       const board = 'bananas';
       const word = 'ban';
@@ -62,6 +71,8 @@ export default function validMoves() {
         const foundMoves = getValidMovesFromWord(randomBoard, word);
 
         expect(foundMoves).to.be.an('array');
+
+        foundMoves.map(move => expect(getWordFromBoardPositions(randomBoard, move)).to.equal(word));
       });
     });
     it('quickly finds moves for repetetive board', function () {
@@ -69,6 +80,7 @@ export default function validMoves() {
         const foundMoves = getValidMovesFromWord(inefficientBoard, word);
 
         expect(foundMoves).to.be.an('array');
+        foundMoves.map(move => expect(getWordFromBoardPositions(inefficientBoard, move)).to.equal(word));
       });
     });
     it('finds all valid moves for complex board', function () {

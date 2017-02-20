@@ -119,11 +119,19 @@ export function cartesianProductWithoutDuplicates(arrayOfArrays, canonicalForm) 
     .reduce((result, letterGroup) => result
       .map(existingResults => letterGroup
         .map(newLetter => existingResults.concat(newLetter)),
-      )
+    )
       .reduce((s, t) => s.concat(t)),
-      [[]]);
+    [[]]);
 
-  return results;
+  // TODO: make this faster to resolve correctly-ordered words
+  return results.map(move => {
+    return arrayOfArrays.map(letterPositions => {      
+      const firstMatchingLetter = letter => _.indexOf(move, letter);
+      const matchedLetters = letterPositions.map(firstMatchingLetter).filter(index => index > -1);
+      const removedLetter = move.splice(matchedLetters.shift(), 1);
+      return removedLetter;
+    });
+  });
 }
 
 export function difference(setA, setB) { return new Set([...setA].filter(x => !setB.has(x))); }

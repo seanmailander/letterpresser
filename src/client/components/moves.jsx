@@ -9,7 +9,7 @@ class Moves extends Component {
     // each move is an array letter positions
 
     // Extract all words from stream
-    return moveStream.map(getWordFromBoardPositions);
+    return moveStream.map(move => getWordFromBoardPositions(board, move));
   }
 
   static generateMoveComponents(words) {

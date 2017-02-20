@@ -124,13 +124,14 @@ export function cartesianProductWithoutDuplicates(arrayOfArrays, canonicalForm) 
     [[]]);
 
   // TODO: make this faster to resolve correctly-ordered words
-  return results.map(move => {
-    return arrayOfArrays.map(letterPositions => {      
+  return results.map((move) => {
+    const mappedLetters = arrayOfArrays.map((letterPositions) => {
       const firstMatchingLetter = letter => _.indexOf(move, letter);
       const matchedLetters = letterPositions.map(firstMatchingLetter).filter(index => index > -1);
       const removedLetter = move.splice(matchedLetters.shift(), 1);
       return removedLetter;
     });
+    return [].concat(...mappedLetters);
   });
 }
 

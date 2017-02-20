@@ -26,13 +26,11 @@ export function findWordsInTrie(letters) {
   };
   // With dictionary and letters, iterate through to check each word
   checkRemaining('', letters.split('').sort().join(''));
-  console.log(`Found ${currentResults.length} words`);
   return [...new Set(currentResults)];
 }
 
 export function findWordsInFlatList(letters) {
   const flatWordList = getFlatWordList();
   const foundWords = getWordsForBoardFromDictionary(letters, flatWordList);
-  console.log(`Found ${foundWords.length} words`);
   return foundWords;
 }

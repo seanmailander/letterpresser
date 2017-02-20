@@ -3,12 +3,20 @@ import { expect } from 'chai';
 
 import { getValidMovesFromWord } from '../boardOperations';
 import { symmetricDifference, getCanonicalFromMove } from '../util';
+import { randomGameBoard } from '../mockData';
+import { findWordsInFlatList } from '../../server/lib/findWords';
 
 function convertMovesToCanonicalSet(moves) {
   return new Set(...[moves.map(getCanonicalFromMove)]);
 }
 
 export default function validMoves() {
+  const randomBoard = randomGameBoard();
+  const randomWords = findWordsInFlatList(randomBoard);
+
+  const inefficientBoard = 'abcdeabcdeabcdeabcdeabcde';
+  const inefficientWords = findWordsInFlatList(inefficientBoard);
+
   describe('generateValidMoves', function () {
     it('finds all valid moves for simple board', function () {
       const board = 'bananas';
@@ -29,12 +37,18 @@ export default function validMoves() {
       expect([...mismatchedMoves]).to.be.empty;
     });
     it('finds all valid moves for simple board with repeats', function () {
-      const board = 'bananas';
-      const word = 'baa';
+      const board = 'banannas';
+      const word = 'baann';
       const expectedMoves = [
-        [0, 1, 3],
-        [0, 1, 5],
-        [0, 3, 5]];
+        [0, 1, 3, 2, 4],
+        [0, 1, 3, 2, 5],
+        [0, 1, 3, 4, 5],
+        [0, 1, 6, 2, 4],
+        [0, 1, 6, 2, 5],
+        [0, 1, 6, 4, 5],
+        [0, 3, 6, 2, 4],
+        [0, 3, 6, 2, 5],
+        [0, 3, 6, 4, 5]];
 
       const foundMoves = getValidMovesFromWord(board, word);
 
@@ -42,6 +56,23 @@ export default function validMoves() {
 
       expect(foundMoves).to.be.an('array');
       expect([...mismatchedMoves]).to.be.empty;
+    });
+    it('quickly finds moves for normal board', function () {
+      randomWords.map((word) => {
+        const foundMoves = getValidMovesFromWord(randomBoard, word);
+
+        expect(foundMoves).to.be.an('array');
+      });
+    });
+    it('quickly finds moves for repetetive board', function () {
+      let start = new Date();
+      inefficientWords.map((word) => {
+        const foundMoves = getValidMovesFromWord(inefficientBoard, word);
+
+        expect(foundMoves).to.be.an('array');
+      });
+
+    console.log('stopping' + (start - new Date()));
     });
     it('finds all valid moves for complex board', function () {
       const board = 'abcdeabcdeabcdeabcdeabcde';

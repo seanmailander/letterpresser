@@ -1,4 +1,4 @@
-import { cartesianProduct, getCanonicalFromMove, uniqBy, arrayIsUnique } from './util';
+import { cartesianProductWithoutDuplicates, getCanonicalFromMove } from './util';
 
 export function getValidMovesFromWord(board, word) {
   // board is a string of 25 characters
@@ -12,17 +12,10 @@ export function getValidMovesFromWord(board, word) {
       .filter(boardLetter => boardLetter[0] === wordLetter)
       .map(boardLetter => boardLetter[1]);
 
-  
   const boardPositionsWithMatchingLetters = word.split('')
     .map(letter => getBoardIndexesOfLetter(letter));
 
-  const moves = cartesianProduct(boardPositionsWithMatchingLetters);
+  const moves = cartesianProductWithoutDuplicates(boardPositionsWithMatchingLetters, getCanonicalFromMove);
 
-  const validMoves = moves.filter(arrayIsUnique);
-
-  const canonicalMoves = validMoves.map(move => [move, getCanonicalFromMove(move)]);
-
-  const uniqueMoves = uniqBy(canonicalMoves, move => move[1]).map(move => move[0]);
-
-  return uniqueMoves;
+  return moves;
 }

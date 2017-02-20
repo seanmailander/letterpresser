@@ -65,14 +65,11 @@ export default function validMoves() {
       });
     });
     it('quickly finds moves for repetetive board', function () {
-      let start = new Date();
       inefficientWords.map((word) => {
         const foundMoves = getValidMovesFromWord(inefficientBoard, word);
 
         expect(foundMoves).to.be.an('array');
       });
-
-    console.log('stopping' + (start - new Date()));
     });
     it('finds all valid moves for complex board', function () {
       const board = 'abcdeabcdeabcdeabcdeabcde';

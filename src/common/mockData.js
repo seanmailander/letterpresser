@@ -25,5 +25,5 @@ export function randomMovesFromWords(board, words) {
 
   const validMovesForWords = uniqueChosenWords
     .map(word => getValidMovesFromWord(board, word));
-  return validMovesForWords.map(validMoves => validMoves[0]);
+  return validMovesForWords.map(validMoves => validMoves[randBetween(0, validMoves.length - 1)]);
 }

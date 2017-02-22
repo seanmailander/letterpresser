@@ -4,7 +4,7 @@
   "description": "helping strategies for letterpress",
   "main": "./server/web.js",
   "engines": {
-    "node": ">=6.9"
+    "node": ">=6.9 <7"
   },
   "repository": {
     "type": "git",

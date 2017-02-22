@@ -44,12 +44,12 @@ class Board extends Component {
     const startingBoardState = range(25).map(() => LetterState.Unclaimed);
 
     // Apply all moves from stream
-    const boardStateWithPlayers = moveStream.reduce((accumulator, currentMove, currentIndex) => {
+    const boardStateWithPlayers = moveStream.reduce((boardState, currentMove, currentIndex) => {
       // First move is player 1
       const isPlayer1 = currentIndex % 2 === 0;
 
       // Map this move onto board positions
-      return accumulator.map((currentPositionValue, currentPosition) => {
+      return boardState.map((currentPositionValue, currentPosition) => {
         // Current move contains this board position
         const isPartOfCurrentMove = currentMove.includes(currentPosition);
         // Apply new owner of board position
@@ -60,7 +60,8 @@ class Board extends Component {
     }, startingBoardState);
 
     // TODO: apply locking based upon entire board
-
+    // for each known adjactent
+    //  if 
 
     return boardStateWithPlayers;
   }

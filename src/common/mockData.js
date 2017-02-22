@@ -1,5 +1,5 @@
 import { range, randBetween } from './util';
-import { getValidMovesFromWord } from './boardOperations';
+import { getValidMovesFromWord, rankMoves } from './boardOperations';
 
 export function randomMoves() {
   const numberOfMoves = 10;
@@ -25,5 +25,5 @@ export function randomMovesFromWords(board, words) {
 
   const validMovesForWords = uniqueChosenWords
     .map(word => getValidMovesFromWord(board, word));
-  return validMovesForWords.map(validMoves => validMoves[randBetween(0, validMoves.length - 1)]);
+  return validMovesForWords.map(validMoves => rankMoves(board, validMoves)[0]);
 }

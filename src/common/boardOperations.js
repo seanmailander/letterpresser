@@ -13,13 +13,18 @@ export function getValidMovesFromWord(board, word) {
   const getBoardIndexesOfLetter = wordLetter =>
     boardArray
       .map((boardLetter, index) => [boardLetter, index])
-      .filter(boardLetter => boardLetter[0] === wordLetter)
-      .map(boardLetter => boardLetter[1]);
+      .filter(([boardLetter, index]) => boardLetter === wordLetter)
+      .map(([boardLetter, index]) => index);
 
   const boardPositionsWithMatchingLetters = word.split('')
     .map(letter => getBoardIndexesOfLetter(letter));
 
   const moves = cartesianProductWithoutDuplicates(boardPositionsWithMatchingLetters, getCanonicalFromMove);
-  
+
   return moves;
+}
+
+export function rankMoves(board, moves) {
+  // TODO: add ranking
+  return moves.sort();
 }

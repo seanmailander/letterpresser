@@ -29,9 +29,8 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack -w",
-    "start": "webpack-dev-server --config src/client/webpack.config.client.babel.js",
+    "start": "node dist/server/js/server.js",
     "serve-dev": "nodemon --delay 500ms --watch dist \"./dist/server/js/server.js\"",
-    "serve": "node dist/server/js/server.js",
     "test": "mocha ./src/__tests__/index.js --require babel-core/register",
     "test-watch": "mocha ./src/__tests__/index.js --require babel-core/register --watch"
   },

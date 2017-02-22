@@ -1,0 +1,51 @@
+.appContainer {
+    display: flex;
+}
+
+.gameBoard {
+    margin: 20px;
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 400px;
+    height: 400px;
+    border: 1px solid grey;
+}
+
+.gameMoves :nth-child(even) {
+    color: blue;
+}
+.gameMoves :nth-child(odd) {
+    color: red;
+}
+
+.letter {
+    flex-basis: auto;
+    width: 20%;
+    height: 20%;
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.letter.p0 {
+    background-color: rgba(20,20,20,.1);
+}
+
+.letter.p1 {
+    background-color: rgba(255,50,50,.5);
+}
+
+.letter.p1.locked {
+    background-color: rgba(255,50,50,.8);
+}
+
+
+.letter.p2 {
+    background-color: rgba(50,50,255,.4);
+}
+.letter.p2.locked {
+    background-color: rgba(50,50,255,.8);
+}

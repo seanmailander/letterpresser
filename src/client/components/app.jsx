@@ -5,7 +5,7 @@ import Board from './board';
 import Moves from './moves';
 import Controls from './controls';
 
-import { randomizeGameBoard, randomMoves, randomMovesFromWords } from '../../common/mockData';
+import { randomizeGameBoard, randomMovesFromWords } from '../../common/mockData';
 
 import { getRandomGame, getWordsForGame } from '../services/letterpresser';
 
@@ -27,13 +27,7 @@ class App extends React.Component {
 
   newRandomGame = () => {
     getRandomGame()
-      .then(board => [board, getWordsForGame(board)])
-      .spread((board, words) => {
-        this.setState({
-          board,
-          moveStream: randomMovesFromWords(board, words),
-        });
-      });
+      .then(board => this.useBoard(board));
   }
 
   useBoard = (boardString) => {

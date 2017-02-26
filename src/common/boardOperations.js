@@ -26,5 +26,6 @@ export function getValidMovesFromWord(board, word) {
 
 export function rankMoves(board, moves) {
   // TODO: add ranking
-  return moves.sort();
+
+  return moves;
 }

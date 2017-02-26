@@ -30,9 +30,9 @@ class Board extends Component {
     const letterClass = `letter ${playerClass} ${lockedClass} `;
 
     return (
-      <div className={ letterClass } key={ id }>
+      <span className={ letterClass } key={ id }>
         {letterContent}
-      </div>
+      </span>
     );
   }
 

@@ -14,7 +14,7 @@ class Moves extends Component {
 
   static generateMoveComponents(words) {
     const moveComponents = words.map(word => (
-      <div className='word' key={ word }>{word}</div>
+      <button className='word' key={ word }>{word}</button>
     ));
     return moveComponents;
   }

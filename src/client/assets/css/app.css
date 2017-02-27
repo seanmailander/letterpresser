@@ -23,10 +23,10 @@
     align-content: flex-start;
 }
 
-.gameMoves :nth-child(even) {
+.gameMoves :nth-child(odd) {
     color: blue;
 }
-.gameMoves :nth-child(odd) {
+.gameMoves :nth-child(even) {
     color: red;
 }
 
@@ -46,20 +46,21 @@
 }
 
 .letter.p1 {
+    background-color: rgba(50,50,255,.4);
+}
+.letter.p1.locked {
+    background-color: rgba(50,50,255,.8);
+}
+
+.letter.p2 {
     background-color: rgba(255,50,50,.5);
 }
 
-.letter.p1.locked {
+.letter.p2.locked {
     background-color: rgba(255,50,50,.8);
 }
 
 
-.letter.p2 {
-    background-color: rgba(50,50,255,.4);
-}
-.letter.p2.locked {
-    background-color: rgba(50,50,255,.8);
-}
 
 .word {
     margin: 3px 5px;

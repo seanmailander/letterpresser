@@ -120,20 +120,20 @@ function boardAnalysis(board) {
   return ((numberOfPlayer1Locks * 10) + numberOfPlayer1Squares) - ((numberOfPlayer2Locks * 10) + numberOfPlayer2Squares);
 }
 
-const maxDepth = 10;
+const maxDepth = 2;
 const sign = [1,-1];
-function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves, validWords, moveHashtable) {
+function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves, lastPlayedWord, validWords, moveHashtable) {
   const indent = range(depth).map(() => ' ');
 
   if (isGameOver(currentBoard) || depth > maxDepth) {
     // console.log(`${indent} Found a leaf: ${JSON.stringify(playedWords)} ${JSON.stringify(sign[color] * boardAnalysis(currentBoard))} `);
-    return sign[color] * boardAnalysis(currentBoard);    
+    return sign[color] * Math.floor(boardAnalysis(currentBoard) / 10);    
   }
 
   let currentMax = -Infinity;
-  const {moves, remainingValidWords} = getMoves(playedWords.slice(0), validWords);
+  const {moves, remainingValidWords} = getMoves(lastPlayedWord, validWords);
 
-  const foundAlpha = moves.sort(({word: wordA}, {word: wordB}) => wordA.length > wordB.length ? 1 : -1).find(({word: currentWord, move: currentMove}) => {
+  const foundAlpha = moves.find(({word: currentWord, move: currentMove}) => {
     const boardAfterMove = applyMoveToBoard(currentBoard.slice(0), currentMove, color === 0);
 
     playedWords.push(currentWord);
@@ -143,84 +143,63 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
       moves: [],
       score: null,
     };
-    const bestNextScore = - negaMax(boardAfterMove, depth + 1, 1 - color, -beta, -alpha, playedWords.slice(0), getMoves, remainingValidWords, currentWordScorekeeper.moves);
+    const bestNextScore = - negaMax(boardAfterMove, depth + 1, 1 - color, -beta, -alpha, playedWords.slice(0), getMoves, currentWord, remainingValidWords, currentWordScorekeeper.moves);
     // store this move and score
     currentWordScorekeeper.score = sign[color] * bestNextScore;
     moveHashtable.push(currentWordScorekeeper);
 
     playedWords.pop();
 
-
-    if (bestNextScore === Infinity || bestNextScore === -Infinity) {
-      debugger;
-    console.error(`WTFMATE, should find something`);
-      
-    }
-
-    // Update if we have it
     if (bestNextScore > currentMax) {
-      // console.log(`${indent} Improved tree: ${depth} ${JSON.stringify(playedWords)} ${currentWord} ${bestNextScore * sign[color]} `);
       currentMax = bestNextScore
     }
-    if (currentMax === -Infinity) {
-      debugger;
-    console.error(`WTFMATE, should find something`);
-    }
     if (bestNextScore > alpha) {
-      // console.log(`${indent} Improved alpha: ${depth} ${JSON.stringify(playedWords)} ${currentWord} ${bestNextScore * sign[color]} `);
       alpha = bestNextScore;
     }
     if (alpha >= beta) {
       currentMax = alpha;
-      // console.log(`${indent} Current best is ${JSON.stringify(playedWords)} ${currentWord} ${currentMax} `);
+      // console.log(`Found some phat alpha meat at depth ${depth}: ${currentWord} ${alpha}`);
       return true;
     }
     return false;
   });
-  if (foundAlpha) {
 
-    return currentMax;
-  }
-  if (currentMax === -Infinity) {
-    debugger;
-    console.error(`WTFMATE, found nothin`);
-  }
-  // console.log(`${indent} Current bestests is ${JSON.stringify(playedWords)} ${currentMax} `);
   return currentMax;
 }
 
 export function getBestMovesToWin(board, validWords, moveHashtable) {
   const movesForWords = validWords.map(word => { return { word, moves: getValidMovesFromWord(board, word).map(move => { return { word, move }}) }});
   
-  const getMoves = (playedWords, remainingValidWords = validWords.slice(0)) => {
+  const getMoves = (lastPlayedWord, remainingValidWords = validWords) => {
 
-    if (playedWords.length > 0) {
-      // Pop last played word
-      const lastPlayedWord = playedWords.slice(0).pop();
-      remainingValidWords = remainingValidWords.filter(word => !word.startsWith(lastPlayedWord));
+    let returningValidWords = remainingValidWords.slice(0);
+    const lastPlayedWordIndex = returningValidWords.indexOf(lastPlayedWord);
+    if (lastPlayedWordIndex >= 0) {
+      returningValidWords.splice(returningValidWords, 1);
     }
-
-    let returningWords = remainingValidWords
-      // TEMP: take 10
-      .slice(0,4)
+    
+    let returningMoves = returningValidWords
+      .sort((wordA, wordB) => wordA.length > wordB.length ? -1 : 1)
+      .slice(0,20)
       // Return valid moves
-      .map(word => movesForWords.find(movesForWord => movesForWord.word === word).moves.slice(0,1))
+      .map(word => movesForWords.find(movesForWord => movesForWord.word === word).moves)
       // Flatten moves down
       .reduce((a, b) => a.concat(b), [])
 
-      if (returningWords.length === 0) {
-        throw new Erorr("no words left");
+      if (returningMoves.length === 0) {
+        throw new Error("no words left");
       }
 
-    return { moves: returningWords, remainingValidWords };
+    return { moves: returningMoves, remainingValidWords: returningValidWords };
   }
 
 
-  return negaMax(StartingBoardState, 0, 0, -Infinity, Infinity, [], getMoves, undefined, moveHashtable);
+  return negaMax(StartingBoardState, 0, 0, -Infinity, Infinity, [], getMoves, undefined, undefined, moveHashtable);
 }
 
 export function getWinningMoves(board, validWords) {
   const moveHashtable = [];
+  console.log('Getting best moves to win');
   const bestMovesToWin = getBestMovesToWin(board, validWords, moveHashtable);
   console.log(bestMovesToWin);
   console.log(moveHashtable);
@@ -234,6 +213,16 @@ export function getWinningMoves(board, validWords) {
     }
   }
   addBestMoveToMoveStream(moveHashtable.find(({word, moves, score}) => score === bestMovesToWin));
-  console.log(moveStream);
+
+  const wordStream = [];
+  const addBestMoveToWordStream = ({word, move, moves, score}) => {
+    wordStream.push(word);
+    const nextMove = moves.find(({word, moves, score}) => score === bestMovesToWin)
+    if (nextMove) {
+      addBestMoveToWordStream(nextMove);
+    }
+  }
+  addBestMoveToWordStream(moveHashtable.find(({word, moves, score}) => score === bestMovesToWin));
+  console.log(wordStream);
   return moveStream;
 }

@@ -120,7 +120,7 @@ function boardAnalysis(board) {
   return ((numberOfPlayer1Locks * 10) + numberOfPlayer1Squares) - ((numberOfPlayer2Locks * 10) + numberOfPlayer2Squares);
 }
 
-const maxDepth = 2;
+const maxDepth = 4;
 const sign = [1,-1];
 function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves, lastPlayedWord, validWords, moveHashtable) {
   const indent = range(depth).map(() => ' ');
@@ -133,6 +133,7 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
   let currentMax = -Infinity;
   const {moves, remainingValidWords} = getMoves(lastPlayedWord, validWords);
 
+  const lastFive = [];
   const foundAlpha = moves.find(({word: currentWord, move: currentMove}) => {
     const boardAfterMove = applyMoveToBoard(currentBoard.slice(0), currentMove, color === 0);
 
@@ -143,7 +144,16 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
       moves: [],
       score: null,
     };
-    const bestNextScore = - negaMax(boardAfterMove, depth + 1, 1 - color, -beta, -alpha, playedWords.slice(0), getMoves, currentWord, remainingValidWords, currentWordScorekeeper.moves);
+    const bestNextScore = - negaMax(boardAfterMove, depth + 1, 1 - color, -beta, -alpha, playedWords.slice(0), getMoves, currentWord, remainingValidWords, 
+    currentWordScorekeeper.moves);
+
+    lastFive.unshift(bestNextScore);
+    if (lastFive.length > 2) {
+      lastFive.pop();
+    }
+    if (lastFive.every(score => score < currentMax)) {
+      return true;
+    }
     // store this move and score
     currentWordScorekeeper.score = sign[color] * bestNextScore;
     moveHashtable.push(currentWordScorekeeper);
@@ -168,9 +178,16 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
 }
 
 export function getBestMovesToWin(board, validWords, moveHashtable) {
-  const movesForWords = validWords.map(word => { return { word, moves: getValidMovesFromWord(board, word).map(move => { return { word, move }}) }});
+  const movesForWords = {};
+  validWords.map(word => 
+    movesForWords[word] = getValidMovesFromWord(board, word)
+      .map(move => { return { word, move }})
+      .sort(({move: moveA}, {move: moveB}) => boardAnalysis(applyMoveToBoard(StartingBoardState, moveA)) > boardAnalysis(applyMoveToBoard(StartingBoardState, moveB)) ? -1 : 1)
+    );
+
+  const sortedValidWords = validWords.slice(0).sort((wordA, wordB) => wordA.length > wordB.length ? -1 : 1);
   
-  const getMoves = (lastPlayedWord, remainingValidWords = validWords) => {
+  const getMoves = (lastPlayedWord, remainingValidWords = sortedValidWords) => {
 
     let returningValidWords = remainingValidWords.slice(0);
     const lastPlayedWordIndex = returningValidWords.indexOf(lastPlayedWord);
@@ -179,10 +196,9 @@ export function getBestMovesToWin(board, validWords, moveHashtable) {
     }
     
     let returningMoves = returningValidWords
-      .sort((wordA, wordB) => wordA.length > wordB.length ? -1 : 1)
       .slice(0,20)
       // Return valid moves
-      .map(word => movesForWords.find(movesForWord => movesForWord.word === word).moves)
+      .map(word => movesForWords[word].slice(0,1))
       // Flatten moves down
       .reduce((a, b) => a.concat(b), [])
 

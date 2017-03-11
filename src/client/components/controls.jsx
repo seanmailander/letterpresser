@@ -16,7 +16,7 @@ class Controls extends Component {
     const useBoard = () => {
       onUseBoard(this.state.value.toUpperCase());
     };
-    
+
     return (
       <div className='gameControls'>
         <input

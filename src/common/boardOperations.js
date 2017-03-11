@@ -41,14 +41,14 @@ export function rankMoves(board, moves) {
 
 function applyMoveToBoard(boardState, currentMove, isPlayer1) {
     // Map this move onto board positions
-    return boardState.map((currentPositionValue, currentPosition) => {
+  return boardState.map((currentPositionValue, currentPosition) => {
       // Current move contains this board position
-      const isPartOfCurrentMove = currentMove.includes(currentPosition);
+    const isPartOfCurrentMove = currentMove.includes(currentPosition);
       // Apply new owner of board position
-      return !isPartOfCurrentMove ? currentPositionValue :
+    return !isPartOfCurrentMove ? currentPositionValue :
           isPlayer1 ? LetterState.Player1 :
             LetterState.Player2;
-    });
+  });
 }
 
 export function applyMovesToBoard(startingBoardState, moveStream) {
@@ -64,33 +64,33 @@ export function applyMovesToBoard(startingBoardState, moveStream) {
 
 export function applyLockingToBoard(boardState) {
   // for each known adjactent
-  //  if 
+  //  if
   const adjacents = [
-    [1,5],         //0:0
-    [0,2,6],       //0:1
-    [1,3,7],       //0:2
-    [2,4,8],       //0:3
-    [3,9],         //0:4
-    [0,6,10],      //1:0
-    [1,5,7,11],    //1:1
-    [2,6,8,12],    //1:2
-    [3,7,9,13],    //1:3
-    [4,8,14],      //1:4
-    [5,11,15],     //2:0
-    [6,10,12,16],  //2:1
-    [7,11,13,17],  //2:2
-    [8,12,14,18],  //2:3
-    [9,13,19],     //2:4
-    [10,16,20],    //3:0
-    [11,15,17,21], //3:1
-    [12,16,18,22], //3:2
-    [13,17,19,23], //3:3
-    [14,18,24],    //3:4
-    [15,21],       //4:0
-    [16,20,22],    //4:1
-    [17,21,23],    //4:2
-    [18,22,24],    //4:3
-    [19,23],       //4:4
+    [1, 5],         // 0:0
+    [0, 2, 6],       // 0:1
+    [1, 3, 7],       // 0:2
+    [2, 4, 8],       // 0:3
+    [3, 9],         // 0:4
+    [0, 6, 10],      // 1:0
+    [1, 5, 7, 11],    // 1:1
+    [2, 6, 8, 12],    // 1:2
+    [3, 7, 9, 13],    // 1:3
+    [4, 8, 14],      // 1:4
+    [5, 11, 15],     // 2:0
+    [6, 10, 12, 16],  // 2:1
+    [7, 11, 13, 17],  // 2:2
+    [8, 12, 14, 18],  // 2:3
+    [9, 13, 19],     // 2:4
+    [10, 16, 20],    // 3:0
+    [11, 15, 17, 21], // 3:1
+    [12, 16, 18, 22], // 3:2
+    [13, 17, 19, 23], // 3:3
+    [14, 18, 24],    // 3:4
+    [15, 21],       // 4:0
+    [16, 20, 22],    // 4:1
+    [17, 21, 23],    // 4:2
+    [18, 22, 24],    // 4:3
+    [19, 23],       //4:4
   ];
   return adjacents.map((adjacentPositions, currentPosition) => {
     const isLocked = adjacentPositions.every(position => (boardState[position] | boardState[currentPosition]) === boardState[currentPosition]);
@@ -112,8 +112,7 @@ function boardAnalysis(board) {
   const numberOfUnclaimedSquares = board.filter(position => (position | LetterState.Unclaimed) === LetterState.Unclaimed).length;
   if (numberOfUnclaimedSquares === 0) {
     // Endgame, all squares claimed, count whomever has more
-    debugger;
-    console.error(`WTFMATE, found a winner`);
+    console.error('WTFMATE, found a winner');
     return numberOfPlayer1Squares > numberOfPlayer2Squares ? Infinity : -Infinity;
   }
   // TODO: build board analysis
@@ -121,20 +120,20 @@ function boardAnalysis(board) {
 }
 
 const maxDepth = 4;
-const sign = [1,-1];
+const sign = [1, -1];
 function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves, lastPlayedWord, validWords, moveHashtable) {
   const indent = range(depth).map(() => ' ');
 
   if (isGameOver(currentBoard) || depth > maxDepth) {
     // console.log(`${indent} Found a leaf: ${JSON.stringify(playedWords)} ${JSON.stringify(sign[color] * boardAnalysis(currentBoard))} `);
-    return sign[color] * Math.floor(boardAnalysis(currentBoard) / 10);    
+    return sign[color] * Math.floor(boardAnalysis(currentBoard) / 10);
   }
 
   let currentMax = -Infinity;
-  const {moves, remainingValidWords} = getMoves(lastPlayedWord, validWords);
+  const { moves, remainingValidWords } = getMoves(lastPlayedWord, validWords);
 
   const lastFive = [];
-  const foundAlpha = moves.find(({word: currentWord, move: currentMove}) => {
+  const foundAlpha = moves.find(({ word: currentWord, move: currentMove }) => {
     const boardAfterMove = applyMoveToBoard(currentBoard.slice(0), currentMove, color === 0);
 
     playedWords.push(currentWord);
@@ -144,7 +143,7 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
       moves: [],
       score: null,
     };
-    const bestNextScore = - negaMax(boardAfterMove, depth + 1, 1 - color, -beta, -alpha, playedWords.slice(0), getMoves, currentWord, remainingValidWords, 
+    const bestNextScore = -negaMax(boardAfterMove, depth + 1, 1 - color, -beta, -alpha, playedWords.slice(0), getMoves, currentWord, remainingValidWords,
     currentWordScorekeeper.moves);
 
     lastFive.unshift(bestNextScore);
@@ -161,7 +160,7 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
     playedWords.pop();
 
     if (bestNextScore > currentMax) {
-      currentMax = bestNextScore
+      currentMax = bestNextScore;
     }
     if (bestNextScore > alpha) {
       alpha = bestNextScore;
@@ -179,35 +178,40 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
 
 export function getBestMovesToWin(board, validWords, moveHashtable) {
   const movesForWords = {};
-  validWords.map(word => 
+  const sortWords = ({ move: moveA }, { move: moveB }) => {
+    const moveAScore = boardAnalysis(applyMoveToBoard(StartingBoardState, moveA));
+    const moveBScore = boardAnalysis(applyMoveToBoard(StartingBoardState, moveB));
+    return moveAScore > moveBScore ? -1 : 1;
+  };
+
+  validWords.foreach((word) => {
     movesForWords[word] = getValidMovesFromWord(board, word)
-      .map(move => { return { word, move }})
-      .sort(({move: moveA}, {move: moveB}) => boardAnalysis(applyMoveToBoard(StartingBoardState, moveA)) > boardAnalysis(applyMoveToBoard(StartingBoardState, moveB)) ? -1 : 1)
-    );
+      .map(move => ({ word, move }))
+      .sort(sortWords);
+  });
 
-  const sortedValidWords = validWords.slice(0).sort((wordA, wordB) => wordA.length > wordB.length ? -1 : 1);
-  
+  const sortedValidWords = validWords.slice(0).sort((wordA, wordB) => (wordA.length > wordB.length ? -1 : 1));
+
   const getMoves = (lastPlayedWord, remainingValidWords = sortedValidWords) => {
-
-    let returningValidWords = remainingValidWords.slice(0);
+    const returningValidWords = remainingValidWords.slice(0);
     const lastPlayedWordIndex = returningValidWords.indexOf(lastPlayedWord);
     if (lastPlayedWordIndex >= 0) {
       returningValidWords.splice(returningValidWords, 1);
     }
-    
-    let returningMoves = returningValidWords
-      .slice(0,20)
-      // Return valid moves
-      .map(word => movesForWords[word].slice(0,1))
-      // Flatten moves down
-      .reduce((a, b) => a.concat(b), [])
 
-      if (returningMoves.length === 0) {
-        throw new Error("no words left");
-      }
+    const returningMoves = returningValidWords
+      .slice(0, 20)
+      // Return valid moves
+      .map(word => movesForWords[word].slice(0, 1))
+      // Flatten moves down
+      .reduce((a, b) => a.concat(b), []);
+
+    if (returningMoves.length === 0) {
+      throw new Error('no words left');
+    }
 
     return { moves: returningMoves, remainingValidWords: returningValidWords };
-  }
+  };
 
 
   return negaMax(StartingBoardState, 0, 0, -Infinity, Infinity, [], getMoves, undefined, undefined, moveHashtable);
@@ -221,24 +225,24 @@ export function getWinningMoves(board, validWords) {
   console.log(moveHashtable);
 
   const moveStream = [];
-  const addBestMoveToMoveStream = ({word, move, moves, score}) => {
+  const addBestMoveToMoveStream = ({ move, moves }) => {
     moveStream.push(move);
-    const nextMove = moves.find(({word, moves, score}) => score === bestMovesToWin)
+    const nextMove = moves.find(({ score }) => score === bestMovesToWin);
     if (nextMove) {
       addBestMoveToMoveStream(nextMove);
     }
-  }
-  addBestMoveToMoveStream(moveHashtable.find(({word, moves, score}) => score === bestMovesToWin));
+  };
+  addBestMoveToMoveStream(moveHashtable.find(({ score }) => score === bestMovesToWin));
 
   const wordStream = [];
-  const addBestMoveToWordStream = ({word, move, moves, score}) => {
+  const addBestMoveToWordStream = ({ word, moves }) => {
     wordStream.push(word);
-    const nextMove = moves.find(({word, moves, score}) => score === bestMovesToWin)
+    const nextMove = moves.find(({ score }) => score === bestMovesToWin);
     if (nextMove) {
       addBestMoveToWordStream(nextMove);
     }
-  }
-  addBestMoveToWordStream(moveHashtable.find(({word, moves, score}) => score === bestMovesToWin));
+  };
+  addBestMoveToWordStream(moveHashtable.find(({ score }) => score === bestMovesToWin));
   console.log(wordStream);
   return moveStream;
 }

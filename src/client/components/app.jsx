@@ -5,7 +5,6 @@ import Board from './board';
 import Moves from './moves';
 import Controls from './controls';
 
-import { randomizeGameBoard, randomMovesFromWords } from '../../common/mockData';
 import { getWinningMoves } from '../../common/boardOperations';
 
 import { getRandomGame, getWordsForGame } from '../services/letterpresser';

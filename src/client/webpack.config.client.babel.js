@@ -4,7 +4,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 
 export default [
-    // Client
+  // Client
   {
     cache: true,
     entry: {
@@ -13,7 +13,7 @@ export default [
     output: {
       filename: '[name].js',
       chunkFilename: '[name].js',
-      path: './dist/client/js',
+      path: './dist/client',
     },
     devtool: 'eval',
     module: {
@@ -45,7 +45,7 @@ export default [
       }),
       new CopyWebpackPlugin([
         // {output}/file.txt
-        { from: './src/client/assets', to: '../' },
+        { from: './src/client/assets', to: './' },
       ]),
     ],
   },

@@ -61,6 +61,7 @@
     "eslint-plugin-react": "6.9.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
-    "serve-index": "^1.8.0"
+    "serve-index": "^1.8.0",
+    "worker-loader": "^0.8.0"
   }
 }

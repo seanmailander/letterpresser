@@ -16,6 +16,15 @@ const initialState = {
 };
 
 
+const insert = (arr, index, newItem) => [
+  // part of the array before the specified index
+  ...arr.slice(0, index),
+  // inserted item
+  newItem,
+  // part of the array after the specified index
+  ...arr.slice(index),
+];
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +34,12 @@ class App extends React.Component {
   componentWillMount() {
     this.newRandomGame();
   }
+
+  handleMoveUpdate = (moveIndex, move) => {
+    this.setState({
+      moveStream: insert([].concat(this.state.moveStream), moveIndex, move),
+    });
+  };
 
   newRandomGame = () => {
     getRandomGame()
@@ -37,11 +52,12 @@ class App extends React.Component {
       .spread((board, words) => {
         // const moveStream = getWinningMoves(board, words);
         const moveStream = [];
-        this.worker = getBoardOperationsWorker(board, words);
         this.setState({
           board,
           moveStream,
         });
+
+        getBoardOperationsWorker(board, words, this.handleMoveUpdate);
       });
   }
 

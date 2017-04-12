@@ -8,16 +8,15 @@ export function getBoardOperationsWorker(board, validWords, handleMoveUpdate) {
 
   // Listen for incoming messages
   worker.onmessage = (e) => {
-    const [message, ...words] = e.data.split(' ');
-    words.map((word, wordIndex) => {
+    const { message, moveStream } = JSON.parse(e.data);
+    moveStream.map((move, moveIndex) => {
       // Urgh string back to number
-      const wordPositions = word.split(',').map(pos => parseInt(pos, 10));
-      handleMoveUpdate(wordIndex, wordPositions);
+      handleMoveUpdate(moveIndex, move);
     });
   };
 
   // Start the worker
-  worker.postMessage(`${board} ${validWords.join(',')}`);
+  worker.postMessage(JSON.stringify({ board, validWords }));
 
   return worker;
 }

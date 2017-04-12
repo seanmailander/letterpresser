@@ -3,14 +3,17 @@ import { getWinningMoves } from '../../common/moveAnalysis';
 import { range } from '../../common/util';
 
 function start(board, words) {
+  console.log(board);
+  console.log(words);
+  
   const moveStream = getWinningMoves(board, words);
-
-  postMessage(`${board} ${moveStream.join(' ')}`);
+  console.log(JSON.stringify(moveStream));
+  postMessage(JSON.stringify({ board, moveStream }));
 }
 
 self.onmessage = (e) => {
-  const [board, validMoves] = e.data.split(' ');
-  if (board && validMoves) {
-    start(board, validMoves.split(','));
+  const { board, validWords } = JSON.parse(e.data);
+  if (board && validWords) {
+    start(board, validWords);
   }
 };

@@ -101,10 +101,10 @@ function getBestMovesToWin(board, validWords, moveHashtable) {
 
 export function getWinningMoves(board, validWords) {
   const moveHashtable = [];
-  console.log('Getting best moves to win');
+  // console.log('Getting best moves to win');
   const bestMovesToWin = getBestMovesToWin(board, validWords, moveHashtable);
-  console.log(bestMovesToWin);
-  console.log(moveHashtable);
+  // console.log(bestMovesToWin);
+  // console.log(moveHashtable);
 
   const moveStream = [];
   const addBestMoveToMoveStream = ({ move, moves }) => {
@@ -124,7 +124,9 @@ export function getWinningMoves(board, validWords) {
       addBestMoveToWordStream(nextMove);
     }
   };
+
   addBestMoveToWordStream(moveHashtable.find(({ score }) => score === bestMovesToWin));
-  console.log(wordStream);
+  // console.log(wordStream);
+  // console.log('done');
   return moveStream;
 }

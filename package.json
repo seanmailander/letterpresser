@@ -48,7 +48,8 @@
     "superagent-bluebird-promise": "^4.1.0",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.3.0",
-    "webpack-node-externals": "^1.5.4"
+    "webpack-node-externals": "^1.5.4",
+    "worker-loader": "^0.8.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -61,7 +62,6 @@
     "eslint-plugin-react": "6.9.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
-    "serve-index": "^1.8.0",
-    "worker-loader": "^0.8.0"
+    "serve-index": "^1.8.0"
   }
 }

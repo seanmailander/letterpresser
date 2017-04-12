@@ -26,7 +26,13 @@ export default function moveAnalysis() {
 
       const expectedRankedMoves = [[3, 0, 2, 1], [0, 2, 1, 3], [3, 1, 2], [3, 0, 1], [2, 1, 3]];
 
-      const foundRankedMoves = getWinningMoves(board, validWords);
+      const noticeBetterMove = (index, move) => {
+        console.log('noticed better move');
+        console.log(index);
+        console.log(move);
+      };
+
+      const foundRankedMoves = getWinningMoves(board, validWords, noticeBetterMove);
 
       const mismatchedMoves = symmetricDifference(convertMovesToCanonicalSet(foundRankedMoves), convertMovesToCanonicalSet(expectedRankedMoves));
 
@@ -34,6 +40,7 @@ export default function moveAnalysis() {
       expect([...mismatchedMoves]).to.be.empty;
     });
     it('finds correct ranked moves for complex board', function () {
+      throw new "nope";
       this.timeout(30000);
       const board = 'oepkyluanpdmcqxnysmgojrht';
 
@@ -51,6 +58,7 @@ export default function moveAnalysis() {
       expect([...mismatchedMoves]).to.be.empty;
     });
     it('finds correct ranked moves without duplicates', function () {
+      throw new "nope";
       this.timeout(30000);
       const board = 'mdwbuwbrhvdgnuupbqhmadubt';
 

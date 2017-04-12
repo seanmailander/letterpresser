@@ -3,7 +3,7 @@ import { range } from './util';
 
 const maxDepth = 4;
 const sign = [1, -1];
-function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves, lastPlayedWord, validWords, moveHashtable) {
+function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves, lastPlayedWord, validWords, moveHashtable, noticeCurrentMaxScore) {
   const indent = range(depth).map(() => ' ');
 
   if (isGameOver(currentBoard) || depth > maxDepth) {
@@ -25,8 +25,19 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
       moves: [],
       score: null,
     };
-    const bestNextScore = -negaMax(boardAfterMove, depth + 1, 1 - color, -beta, -alpha, playedWords.slice(0), getMoves, currentWord, remainingValidWords,
-    currentWordScorekeeper.moves);
+    const bestNextScore = -negaMax(
+      boardAfterMove,
+      depth + 1,
+      1 - color,
+      -beta,
+      -alpha,
+      playedWords.slice(0),
+      getMoves,
+      currentWord,
+      remainingValidWords,
+      currentWordScorekeeper.moves,
+      noticeCurrentMaxScore,
+      );
 
     lastFive.unshift(bestNextScore);
     if (lastFive.length > 2) {
@@ -43,22 +54,27 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
 
     if (bestNextScore > currentMax) {
       currentMax = bestNextScore;
+      // noticeCurrentMaxScore(currentWordScorekeeper.score, moveHashtable);
     }
     if (bestNextScore > alpha) {
       alpha = bestNextScore;
+      // noticeCurrentMaxScore(currentWordScorekeeper.score, moveHashtable);
     }
     if (alpha >= beta) {
       currentMax = alpha;
+      noticeCurrentMaxScore(currentWordScorekeeper.score, moveHashtable);
       // console.log(`Found some phat alpha meat at depth ${depth}: ${currentWord} ${alpha}`);
       return true;
     }
     return false;
   });
 
+  console.log(currentMax);
+  // noticeCurrentMaxScore(currentMax, moveHashtable);
   return currentMax;
 }
 
-function getBestMovesToWin(board, validWords, moveHashtable) {
+function getBestMovesToWin(board, validWords, moveHashtable, noticeCurrentMaxScore) {
   const movesForWords = {};
   const sortWords = ({ move: moveA }, { move: moveB }) => {
     const moveAScore = boardAnalysis(applyMoveToBoard(StartingBoardState, moveA));
@@ -96,36 +112,64 @@ function getBestMovesToWin(board, validWords, moveHashtable) {
   };
 
 
-  return negaMax(StartingBoardState, 0, 0, -Infinity, Infinity, [], getMoves, undefined, undefined, moveHashtable);
+  return negaMax(StartingBoardState, 0, 0, -Infinity, Infinity, [], getMoves, undefined, undefined, moveHashtable, noticeCurrentMaxScore);
 }
 
-export function getWinningMoves(board, validWords) {
-  const moveHashtable = [];
-  // console.log('Getting best moves to win');
-  const bestMovesToWin = getBestMovesToWin(board, validWords, moveHashtable);
-  // console.log(bestMovesToWin);
-  // console.log(moveHashtable);
-
+function getScoreThreadFromMoveHashtable(bestScore, moveHashtable) {
   const moveStream = [];
-  const addBestMoveToMoveStream = ({ move, moves }) => {
+  const addBestMoveToMoveStream = ({ move, moves } = {}) => {
+    if (!move) {
+      return;
+    }
     moveStream.push(move);
-    const nextMove = moves.find(({ score }) => score === bestMovesToWin);
+    const nextMove = moves.find(({ score }) => score === bestScore);
     if (nextMove) {
       addBestMoveToMoveStream(nextMove);
     }
   };
-  addBestMoveToMoveStream(moveHashtable.find(({ score }) => score === bestMovesToWin));
+  addBestMoveToMoveStream(moveHashtable.find(({ score }) => score === bestScore));
 
   const wordStream = [];
-  const addBestMoveToWordStream = ({ word, moves }) => {
+  const addBestMoveToWordStream = ({ word, moves } = {}) => {
+    if (!word) {
+      return;
+    }
     wordStream.push(word);
-    const nextMove = moves.find(({ score }) => score === bestMovesToWin);
+    const nextMove = moves.find(({ score }) => score === bestScore);
     if (nextMove) {
       addBestMoveToWordStream(nextMove);
     }
   };
 
-  addBestMoveToWordStream(moveHashtable.find(({ score }) => score === bestMovesToWin));
+  addBestMoveToWordStream(moveHashtable.find(({ score }) => score === bestScore));
+
+  return moveStream;
+}
+
+export function getWinningMoves(board, validWords, noticeBetterMove) {
+  const moveHashtable = [];
+  // console.log('Getting best moves to win');
+
+  const noticeCurrentMaxScore = (score, currentMoveHashtable) => {
+    // console.log('noticing current max');
+    // console.log(score);
+    // console.log(moveHashtable);
+    if (moveHashtable.length === 0) {
+      return;
+    }
+    // getScoreThreadFromMoveHashtable(score, filledMoveHashtable).map(thing => console.log(thing));
+
+    getScoreThreadFromMoveHashtable(score, moveHashtable).map((move, index) => noticeBetterMove(index, move));
+  };
+  const bestMovesToWin = getBestMovesToWin(board, validWords, moveHashtable, noticeCurrentMaxScore);
+  
+  // console.log('found moves');
+  // console.log(bestMovesToWin);
+  // console.log(moveHashtable);
+
+
+  const moveStream = getScoreThreadFromMoveHashtable(bestMovesToWin, moveHashtable);
+
   // console.log(wordStream);
   // console.log('done');
   return moveStream;

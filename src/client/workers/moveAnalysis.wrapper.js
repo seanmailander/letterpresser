@@ -8,11 +8,12 @@ export function getBoardOperationsWorker(board, validWords, handleMoveUpdate) {
 
   // Listen for incoming messages
   worker.onmessage = (e) => {
-    const { message, moveStream } = JSON.parse(e.data);
-    moveStream.map((move, moveIndex) => {
-      // Urgh string back to number
-      handleMoveUpdate(moveIndex, move);
-    });
+    const { index, move } = JSON.parse(e.data);
+    handleMoveUpdate(index, move);
+    // moveStream.map((move, moveIndex) => {
+    //   // Urgh string back to number
+    //   handleMoveUpdate(moveIndex, move);
+    // });
   };
 
   // Start the worker

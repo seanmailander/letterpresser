@@ -5,7 +5,6 @@ import Board from './board';
 import Moves from './moves';
 import Controls from './controls';
 
-import { getWinningMoves } from '../../common/moveAnalysis';
 import { getBoardOperationsWorker } from '../workers/moveAnalysis.wrapper';
 
 import { getRandomGame, getWordsForGame } from '../services/letterpresser';
@@ -50,7 +49,6 @@ class App extends React.Component {
     Promise.resolve()
       .then(() => [boardString, getWordsForGame(boardString)])
       .spread((board, words) => {
-        // const moveStream = getWinningMoves(board, words);
         const moveStream = [];
         this.setState({
           board,

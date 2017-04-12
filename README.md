@@ -22,13 +22,22 @@ Files from upstream:
 # Resources
 
 http://stevehanov.ca/blog/index.php?id=120
+
 https://github.com/jeresig/trie-js
+
 http://ejohn.org/blog/javascript-trie-performance-analysis/
+
 https://github.com/fogleman/TWL06/blob/master/twl.py
+
 https://raw.githubusercontent.com/jessicatysu/scrabble/master/TWL06.txt
+
 https://github.com/rspeer/solvertools/tree/master/data/wordlists/raw
+
 https://www.wordgamedictionary.com/twl06/download/twl06.txt
+
 https://github.com/neilk/wordfrequencies
+
 http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
+
 https://github.com/quackle/quackle/tree/master/data/raw_lexica
 

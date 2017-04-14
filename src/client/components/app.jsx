@@ -21,7 +21,7 @@ const insert = (arr, index, newItem) => [
   // inserted item
   newItem,
   // part of the array after the specified index
-  ...arr.slice(index),
+  ...arr.slice(index + 1),
 ];
 
 class App extends React.Component {

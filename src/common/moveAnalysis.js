@@ -1,7 +1,7 @@
 import { isGameOver, boardAnalysis, applyMoveToBoard, getValidMovesFromWord, StartingBoardState } from './boardOperations';
 import { range } from './util';
 
-const maxDepth = 10;
+const maxDepth = 20;
 const sign = [1, -1];
 function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves, lastPlayedWord, validWords, moveHashtable, noticeCurrentMaxScore) {
   const indent = range(depth).map(() => ' ');

@@ -116,5 +116,5 @@ export function boardAnalysis(board) {
     return numberOfPlayer1Squares > numberOfPlayer2Squares ? Infinity : -Infinity;
   }
   // TODO: build board analysis
-  return ((numberOfPlayer1Locks * 10) + numberOfPlayer1Squares) - ((numberOfPlayer2Locks * 10) + numberOfPlayer2Squares);
+  return (((numberOfPlayer1Locks * 10) + numberOfPlayer1Squares) - ((numberOfPlayer2Locks * 10) + numberOfPlayer2Squares)) + Math.random();
 }

@@ -8,7 +8,7 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
 
   if (isGameOver(currentBoard) || depth > maxDepth) {
     // console.log(`${indent} Found a leaf: ${JSON.stringify(playedWords)} ${JSON.stringify(sign[color] * boardAnalysis(currentBoard))} `);
-    return sign[color] * Math.floor(boardAnalysis(currentBoard) / 10);
+    return sign[color] * Math.floor(boardAnalysis(currentBoard) * 100);
   }
 
   let currentMax = -Infinity;
@@ -70,7 +70,7 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
   });
 
   console.log(currentMax);
-  // noticeCurrentMaxScore(currentMax, moveHashtable);
+  noticeCurrentMaxScore(currentMax, moveHashtable);
   return currentMax;
 }
 
@@ -97,6 +97,8 @@ function getBestMovesToWin(board, validWords, moveHashtable, noticeCurrentMaxSco
       returningValidWords.splice(returningValidWords, 1);
     }
 
+
+    // TODO: check for duplicates here
     const returningMoves = returningValidWords
       .slice(0, 20)
       // Return valid moves

@@ -1,11 +1,10 @@
-import { isGameOver, boardAnalysis, applyMoveToBoard, getValidMovesFromWord, StartingBoardState } from '../../common/boardOperations';
+import { isGameOver, applyMoveToBoard, getValidMovesFromWord, StartingBoardState } from '../../common/boardOperations';
 import { getWinningMoves } from '../../common/moveAnalysis';
 import { range } from '../../common/util';
 
 function start(board, words) {
-  console.log(board);
-  console.log(words);
-  
+  // console.log(board);
+  // console.log(words);
 
   const noticeBetterMove = (index, move) => {
     // console.log('noticed better move');

@@ -13,8 +13,8 @@ class Moves extends Component {
   }
 
   static generateMoveComponents(words) {
-    const moveComponents = words.map(word => (
-      <button className='word' key={ word }>{word}</button>
+    const moveComponents = words.map((word, index) => (
+      <button className='word' key={ `word${index}` }>{word}</button>
     ));
     return moveComponents;
   }

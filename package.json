@@ -15,7 +15,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "prebuild": "mkdir -p data && node --experimental-modules ./src/server/lib/retrieveData.js",
+    "now-build": "mkdir -p data && node --experimental-modules ./src/server/lib/retrieveData.js",
     "watch": "webpack -w",
     "dev": "node --experimental-modules \"./src/server/server.js\"",
     "test": "mocha ./src/__tests__/index.js --require babel-core/register",

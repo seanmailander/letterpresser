@@ -11,7 +11,6 @@ function loadNativeLibrary(path, context = {}) {
 
 const succinctTrie = loadNativeLibrary('./src/server/lib/Bits.sthanov.js', { console });
 
-
 function loadWordsFromRawData(pathToWords) {
   try {
     return fs.readFileSync(pathToWords, 'utf8').split('\n');
@@ -92,7 +91,6 @@ export function getFlatWordList() {
   } else {
     flatWords = loadJSONFromDisk(pathToFlatWords);
   }
-
   return flatWords;
 }
 

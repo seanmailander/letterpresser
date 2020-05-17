@@ -13,7 +13,7 @@ export default [
     output: {
       filename: '[name].js',
       chunkFilename: '[name].js',
-      path: './dist/client',
+      path: './public',
     },
     devtool: 'eval',
     module: {

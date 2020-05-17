@@ -1,27 +1,15 @@
-const express = require('express');
-const expressValidator = require('express-validator');
-const path = require('path');
-const bodyParser = require('body-parser');
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
 
-const router = require('./router');
+import router from './router/index.js ';
 
 const app = express();
 
-app.use(express.static(path.resolve(`${__dirname}/../../client`)));
+app.use(express.static(path.resolve(`./public`)));
 
 app.use(bodyParser.json());
 
-app.use(expressValidator({
-  customSanitizers: {
-    alphaOnly(value) {
-      return value.replace(/[^a-zA-Z]/g, '');
-    },
-    toLowerCase(value) {
-      return value.toLowerCase();
-    },
-  },
-}));
-
 router(app);
 
-module.exports = app;
+export default app;

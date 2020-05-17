@@ -1,8 +1,8 @@
 {
   "name": "letterpresser",
   "version": "0.1.0",
-  "description": "helping strategies for letterpress",
-  "main": "./server/web.js",
+  "description": "Helping strategies for letterpress",
+  "main": "./src/server/server.js",
   "type": "module",
   "engines": {
     "node": ">=12"
@@ -11,18 +11,14 @@
     "type": "git",
     "url": "https://github.com/seanmailander/letterpresser"
   },
-  "keywords": [
-    "node",
-    "letterpress"
-  ],
   "author": "Sean Mailander",
   "license": "MIT",
   "scripts": {
-    "postinstall": "./scripts/build.sh && npm run build",
     "build": "webpack",
+    "now-build": "mkdir -p data && node --experimental-modules ./src/server/lib/retrieveData.js",
+    "postnow-build": "webpack",
     "watch": "webpack -w",
-    "start": "node dist/server/js/server.js",
-    "serve-dev": "nodemon --delay 500ms --watch dist \"./dist/server/js/server.js\"",
+    "dev": "node --experimental-modules \"./src/server/server.js\"",
     "test": "mocha ./src/__tests__/index.js --require babel-core/register",
     "test-watch": "mocha ./src/__tests__/index.js --require babel-core/register --watch"
   },
@@ -41,8 +37,6 @@
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "react-router": "3.0.2",
-    "express-validator": "^3.1.2",
-    "express-livereload": "0.0.24",
     "express": "^4.14.1",
     "superagent": "^3.4.1",
     "superagent-bluebird-promise": "^4.1.0",
@@ -61,7 +55,7 @@
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.9.0",
     "mocha": "^3.2.0",
-    "nodemon": "^1.11.0",
+    "node-fetch": "^2.6.0",
     "serve-index": "^1.8.0"
   }
 }

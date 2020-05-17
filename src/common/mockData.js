@@ -1,5 +1,5 @@
-import { range, randBetween } from './util';
-import { getValidMovesFromWord, rankMoves } from './boardOperations';
+import { range, randBetween } from './util.js';
+import { getValidMovesFromWord, rankMoves } from './boardOperations.js';
 
 export function randomGameBoard() {
   const boardSize = 25;

@@ -1,4 +1,4 @@
-import { cartesianProductWithoutDuplicates, getCanonicalFromMove, range } from './util';
+import { cartesianProductWithoutDuplicates, getCanonicalFromMove, range } from './util.js';
 
 export const LetterState = {
   Unclaimed: 1,

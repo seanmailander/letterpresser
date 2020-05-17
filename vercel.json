@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/randomGame.js": {
+      "includeFiles": "./src/**/*.js"
+    },
+    "api/wordsForGame.js": {
+      "includeFiles": "{./src/**/*.js,./data/*}"
+    }
+  }
+}

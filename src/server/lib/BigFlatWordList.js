@@ -1,4 +1,4 @@
-import { getCanonical } from '../../common/util';
+import { getCanonical } from '../../common/util.js';
 
 function isSubset(iStr, jStr) {
   let i = 0;

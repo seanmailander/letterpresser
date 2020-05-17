@@ -1,7 +1,7 @@
 import fs from 'fs';
 import vm from 'vm';
 
-import { convertWordsToFlatWordList } from './BigFlatWordList';
+import { convertWordsToFlatWordList } from './BigFlatWordList.js';
 
 function loadNativeLibrary(path, context = {}) {
   const data = fs.readFileSync(path);

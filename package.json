@@ -1,8 +1,8 @@
 {
   "name": "letterpresser",
   "version": "0.1.0",
-  "description": "helping strategies for letterpress",
-  "main": "./server/web.js",
+  "description": "Helping strategies for letterpress",
+  "main": "./src/server/server.js",
   "type": "module",
   "engines": {
     "node": ">=12"
@@ -11,18 +11,14 @@
     "type": "git",
     "url": "https://github.com/seanmailander/letterpresser"
   },
-  "keywords": [
-    "node",
-    "letterpress"
-  ],
   "author": "Sean Mailander",
   "license": "MIT",
   "scripts": {
     "postinstall": "./scripts/build.sh && npm run build",
     "build": "webpack",
     "watch": "webpack -w",
-    "start": "node dist/server/js/server.js",
-    "serve-dev": "nodemon --delay 500ms --watch dist \"./dist/server/js/server.js\"",
+    "start": "node ./src/server/server.js",
+    "serve-dev": "nodemon --delay 500ms --watch src/server --watch src/common --experimental-modules \"./src/server/server.js\"",
     "test": "mocha ./src/__tests__/index.js --require babel-core/register",
     "test-watch": "mocha ./src/__tests__/index.js --require babel-core/register --watch"
   },

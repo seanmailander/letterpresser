@@ -1,5 +1,5 @@
-import { getTrie, getFlatWordList } from './initializeData';
-import { getWordsForBoardFromDictionary } from '../lib/BigFlatWordList';
+import { getTrie, getFlatWordList } from './initializeData.js';
+import { getWordsForBoardFromDictionary } from '../lib/BigFlatWordList.js';
 
 
 // Primary entry point for anagram finding

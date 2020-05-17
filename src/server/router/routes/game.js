@@ -1,7 +1,7 @@
 import express from 'express';
 import util from 'util';
 
-import { getWordsForGame, getRandomGameBoard } from '../../services/letterpresser';
+import { getWordsForGame, getRandomGameBoard } from '../../services/letterpresser.js';
 
 const router = express.Router();
 
@@ -29,4 +29,4 @@ router.get('/wordsForGame/:board', (req, res, next) => {
   }
 });
 
-module.exports = router;
+export default router;

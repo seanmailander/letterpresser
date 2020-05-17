@@ -1,13 +1,13 @@
-const express = require('express');
-const expressValidator = require('express-validator');
-const path = require('path');
-const bodyParser = require('body-parser');
+import express from 'express';
+import expressValidator from 'express-validator';
+import path from 'path';
+import bodyParser from 'body-parser';
 
-const router = require('./router');
+import router from './router/index.js ';
 
 const app = express();
 
-app.use(express.static(path.resolve(`${__dirname}/../../client`)));
+app.use(express.static(path.resolve(`./dist/client`)));
 
 app.use(bodyParser.json());
 
@@ -24,4 +24,4 @@ app.use(expressValidator({
 
 router(app);
 
-module.exports = app;
+export default app;

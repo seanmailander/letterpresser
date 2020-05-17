@@ -15,10 +15,8 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "prebuild": "node --experimental-modules ./src/server/lib/retrieveData.js",
-
+    "prebuild": "mkdir -p data && node --experimental-modules ./src/server/lib/retrieveData.js",
     "watch": "webpack -w",
-    "start": "node ./src/server/server.js",
     "dev": "node --experimental-modules \"./src/server/server.js\"",
     "test": "mocha ./src/__tests__/index.js --require babel-core/register",
     "test-watch": "mocha ./src/__tests__/index.js --require babel-core/register --watch"

@@ -1,10 +1,11 @@
 {
   "name": "letterpresser",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "helping strategies for letterpress",
   "main": "./server/web.js",
+  "type": "module",
   "engines": {
-    "node": ">=6.9 <7"
+    "node": ">=12"
   },
   "repository": {
     "type": "git",
@@ -12,7 +13,6 @@
   },
   "keywords": [
     "node",
-    "heroku",
     "letterpress"
   ],
   "author": "Sean Mailander",

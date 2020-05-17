@@ -91,7 +91,6 @@ export function getFlatWordList() {
   } else {
     flatWords = loadJSONFromDisk(pathToFlatWords);
   }
-
   return flatWords;
 }
 

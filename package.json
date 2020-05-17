@@ -15,9 +15,11 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
+    "prebuild": "node --experimental-modules ./src/server/lib/retrieveData.js",
+
     "watch": "webpack -w",
     "start": "node ./src/server/server.js",
-    "serve-dev": "nodemon --delay 500ms --watch src/server --watch src/common --experimental-modules \"./src/server/server.js\"",
+    "dev": "node --experimental-modules \"./src/server/server.js\"",
     "test": "mocha ./src/__tests__/index.js --require babel-core/register",
     "test-watch": "mocha ./src/__tests__/index.js --require babel-core/register --watch"
   },
@@ -56,7 +58,7 @@
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.9.0",
     "mocha": "^3.2.0",
-    "nodemon": "^1.11.0",
+    "node-fetch": "^2.6.0",
     "serve-index": "^1.8.0"
   }
 }

@@ -1,31 +1,17 @@
-import request from 'request';
+import util from 'util';
 import fs from 'fs';
+import fetch from 'node-fetch';
+import stream from 'stream';
 
-const downloadFile = (pathToFile) => {
-  const targetFile = fs.createWriteStream(pathToFile);
-  await new Promise((resolve, reject) => {
-      request({
-          uri: 'https://www.wordgamedictionary.com/sowpods/download/sowpods.txt ',
-          headers: {
-              'Accept': 'text/html',
-              'Accept-Encoding': 'gzip, deflate, br',
-              'Cache-Control': 'max-age=0',
-          },
-          gzip: true
-      })
-      .pipe(targetFile)
-      .on('finish', () => {
-          console.log(`Download of ${pathToFile} complete`);
-          resolve();
-      })
-      .on('error', (error) => {
-          reject(error);
-      });
-  })
-  .catch(error => {
-      console.log(`Something happened: ${error}`);
-  });
+const streamPipeline = util.promisify(stream.pipeline);
 
+const url = 'https://www.wordgamedictionary.com/sowpods/download/sowpods.txt';
+const pathToFile = './data/sowpods.txt';
+
+async function download (pathToFile) {
+  const response = await fetch(url)
+  if (!response.ok) throw new Error(`unexpected response ${response.statusText}`)
+  await streamPipeline(response.body, fs.createWriteStream(pathToFile))
 }
 
-export default downloadFile;
+download(pathToFile);

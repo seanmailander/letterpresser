@@ -2,7 +2,6 @@ import fs from 'fs';
 import vm from 'vm';
 
 import { convertWordsToFlatWordList } from './BigFlatWordList.js';
-import retrieveData from './retrieveData.js';
 
 function loadNativeLibrary(path, context = {}) {
   const data = fs.readFileSync(path);
@@ -14,9 +13,6 @@ const succinctTrie = loadNativeLibrary('./src/server/lib/Bits.sthanov.js', { con
 
 function loadWordsFromRawData(pathToWords) {
   try {
-    if (!fs.existsSync(pathToWords)) {
-      await retrieveData(pathToWords);
-    }
     return fs.readFileSync(pathToWords, 'utf8').split('\n');
   } catch (e) {
     console.error(e);

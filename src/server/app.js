@@ -7,7 +7,7 @@ import router from './router/index.js ';
 
 const app = express();
 
-app.use(express.static(path.resolve(`./dist/client`)));
+app.use(express.static(path.resolve(`./public/client`)));
 
 app.use(bodyParser.json());
 

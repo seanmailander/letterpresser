@@ -2,6 +2,12 @@
 
 Suggests moves for Letterpress games (an opportunity to learn node.js capabilities)
 
+# How does it run?
+
+```bash
+npx vercel dev
+```
+
 # Pieces of the puzzle
 
 Files from upstream:

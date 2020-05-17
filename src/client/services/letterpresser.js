@@ -1,11 +1,11 @@
 import * as BaseAPI from './baseApi';
 
 export const getWordsForGameRequest = board =>
-    BaseAPI.generateApiGet(`/api/game/wordsForGame/${board}`)
+    BaseAPI.generateApiGet(`/api/wordsForGame?board=${board}`)
         .then(response => response.map(word => word.toUpperCase()));
 
 export const getRandomGameRequest = () =>
-    BaseAPI.generateApiGet('/api/game/randomGame')
+    BaseAPI.generateApiGet('/api/randomGame')
         .then(response => response.toUpperCase());
 
 

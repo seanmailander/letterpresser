@@ -9,7 +9,7 @@ router.get('/randomGame', (req, res, next) => {
     res.json(getRandomGameBoard());
 });
 
-router.get('/wordsForGame/:board', (req, res, next) => {
+router.get('/wordsForGame', (req, res, next) => {
   req.check('board', 'board must exist').notEmpty();
   if (req.params.board) {
     req.sanitize('board').alphaOnly();

@@ -1,3 +1,3 @@
 import ClientConfig from './src/client/webpack.config.client.babel';
 
-export default [ClientConfig];
+export default [].concat(ClientConfig);

@@ -1,9 +1,9 @@
 import React from 'react';
-import Promise from 'bluebird';
 
 import Board from './board';
 import Moves from './moves';
 import Controls from './controls';
+import ForkMe from './fork-me';
 
 import { getBoardOperationsWorker } from '../workers/moveAnalysis.wrapper';
 
@@ -47,15 +47,15 @@ class App extends React.Component {
 
   useBoard = (boardString) => {
     Promise.resolve()
-      .then(() => [boardString, getWordsForGame(boardString)])
-      .spread((board, words) => {
+      .then(() => getWordsForGame(boardString))
+      .then((words) => {
         const moveStream = [];
         this.setState({
-          board,
+          board: boardString,
           moveStream,
         });
 
-        getBoardOperationsWorker(board, words, this.handleMoveUpdate);
+        getBoardOperationsWorker(boardString, words, this.handleMoveUpdate);
       });
   }
 
@@ -63,10 +63,16 @@ class App extends React.Component {
     const { board, moveStream } = this.state;
 
     return (
-      <div className='appContainer'>
-        <Controls onRandomize={ this.newRandomGame } onUseBoard={ this.useBoard } />
-        <Board board={ board } moveStream={ moveStream } />
-        <Moves board={ board } moveStream={ moveStream } />
+      <div>
+        <header>
+          Letterpresser
+          <ForkMe />
+        </header>
+        <div className='appContainer'>
+          <Controls onRandomize={ this.newRandomGame } onUseBoard={ this.useBoard } />
+          <Board board={ board } moveStream={ moveStream } />
+          <Moves board={ board } moveStream={ moveStream } />
+        </div>
       </div>
     );
   }

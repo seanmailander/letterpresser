@@ -1,5 +1,4 @@
-import Promise from 'bluebird';
-import request from 'superagent-bluebird-promise';
+import request from 'superagent';
 
 export const generateApiPost = (url, data) =>
     request.post(url)

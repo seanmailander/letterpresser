@@ -20,7 +20,7 @@ const inefficientBoard = 'abcdeabcdeabcdeabcdeabcde';
 const inefficientWords = findWordsInFlatList(inefficientBoard);
 
 describe('moveAnalysis', () => {
-  test('finds correct ranked moves for simple board', () => {
+  test.skip('finds correct ranked moves for simple board', () => {
     const board = 'aabcqqqqqqqqqqqqqqqqqqqqq';
     const validWords = getWordsForGame(board);
 

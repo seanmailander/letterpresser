@@ -8,7 +8,7 @@ import { getTrie } from './initializeData';
 const trie = getTrie();
 
 describe('findWordsInTrie', () => {
-  test('finds at least one word', () => {
+  test.skip('finds at least one word', () => {
     const board = 'batter';
     const foundWords = findWordsInTrie(board);
 
@@ -24,7 +24,7 @@ describe('findWordsInTrie', () => {
     expect(flattenedWords).to.have.length.of.at.least(1);
   });
 
-  test('find a valid prefix', () => {
+  test.skip('find a valid prefix', () => {
     // const board = 'abcdeabcdeabcdeabcde';
 
     expect(trie.isPrefix('b')).to.be.true;

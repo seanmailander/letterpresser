@@ -5,7 +5,7 @@
   "main": "./src/server/server.js",
   "type": "module",
   "engines": {
-    "node": ">=12"
+    "node": "12.x"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   "scripts": {
     "build": "webpack",
     "now-build": "mkdir -p data && node --experimental-modules ./src/server/lib/retrieveData.js",
-    "postnow-build": "webpack",
+    "postnow-build": "node -v && webpack",
     "watch": "webpack -w",
     "dev": "node --experimental-modules \"./src/server/server.js\"",
     "test": "jest"

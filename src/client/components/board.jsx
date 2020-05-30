@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { range } from '../../common/util';
 import { StartingBoardState, LetterState, applyLockingToBoard, applyMovesToBoard } from '../../common/boardOperations';

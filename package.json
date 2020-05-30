@@ -39,14 +39,14 @@
     "express": "^4.17.1",
     "superagent": "^3.8.3",
     "webpack": "2.2.1",
-    "webpack-dev-server": "2.3.0",
+    "webpack-dev-server": "3.1.11",
     "webpack-node-externals": "^1.5.4",
     "worker-loader": "^0.8.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "cors": "^2.8.1",
-    "eslint": "^3.15.0",
+    "eslint": "^4.18.2",
     "eslint-config-airbnb": "14.1.0",
     "eslint-import-resolver-webpack": "0.8.1",
     "eslint-plugin-import": "2.2.0",

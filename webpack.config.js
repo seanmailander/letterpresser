@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
 
 module.exports = {
     cache: true,
@@ -9,7 +10,7 @@ module.exports = {
     output: {
       filename: '[name].js',
       chunkFilename: '[name].js',
-      path: './public',
+      path: path.resolve(__dirname, 'public'),
     },
     devtool: 'eval',
     module: {

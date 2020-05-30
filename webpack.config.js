@@ -1,11 +1,8 @@
-import webpack from 'webpack';
-import path from 'path';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
 
-
-export default [
-  // Client
-  {
+module.exports = {
     cache: true,
     entry: {
       client: './src/client/client.jsx',
@@ -13,23 +10,21 @@ export default [
     output: {
       filename: '[name].js',
       chunkFilename: '[name].js',
-      path: './public',
+      path: path.resolve(__dirname, 'public'),
     },
     devtool: 'eval',
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.jsx?$/,
-          include: [
-            path.join(__dirname, '../..'),
-          ],
           exclude: /node_modules/,
-          loader: 'babel-loader',
-          query: {
-            cacheDirectory: true,
-            presets: ['es2015', 'react', 'stage-0'],
-          },
-        },
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          }
+        }
       ],
     },
     resolve: {
@@ -48,5 +43,4 @@ export default [
         { from: './src/client/assets', to: './' },
       ]),
     ],
-  },
-];
+};

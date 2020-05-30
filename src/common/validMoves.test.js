@@ -1,24 +1,23 @@
 /* eslint-disable arrow-body-style, no-unused-expressions, func-names, prefer-arrow-callback */
 import { expect } from 'chai';
 
-import { getValidMovesFromWord, getWordFromBoardPositions } from '../boardOperations';
-import { symmetricDifference, getCanonicalFromMove } from '../util';
-import { randomGameBoard } from '../mockData';
-import { findWordsInFlatList } from '../../server/lib/findWords';
+import { getValidMovesFromWord, getWordFromBoardPositions } from './boardOperations';
+import { symmetricDifference, getCanonicalFromMove } from './util';
+import { randomGameBoard } from './mockData';
+import { findWordsInFlatList } from '../server/lib/findWords';
 
 function convertMovesToCanonicalSet(moves) {
   return new Set(...[moves.map(getCanonicalFromMove)]);
 }
 
-export default function validMoves() {
   const randomBoard = randomGameBoard();
   const randomWords = findWordsInFlatList(randomBoard);
 
   const inefficientBoard = 'abcdeabcdeabcdeabcdeabcde';
   const inefficientWords = findWordsInFlatList(inefficientBoard);
 
-  describe('generateValidMoves', function () {
-    it('finds valid moves in correct order', function () {
+  describe('generateValidMoves', () => {
+    test('finds valid moves in correct order', () => {
       const board = 'bana';
       const word = 'ban';
 
@@ -27,7 +26,7 @@ export default function validMoves() {
       expect(foundMoves).to.be.an('array');
       foundMoves.map(move => expect(getWordFromBoardPositions(board, move)).to.equal(word));
     });
-    it('finds all valid moves for simple board', function () {
+    test('finds all valid moves for simple board', () => {
       const board = 'bananas';
       const word = 'ban';
       const expectedMoves = [
@@ -45,7 +44,7 @@ export default function validMoves() {
       expect(foundMoves).to.be.an('array');
       expect([...mismatchedMoves]).to.be.empty;
     });
-    it('finds all valid moves for simple board with repeats', function () {
+    test('finds all valid moves for simple board with repeats', () => {
       const board = 'banannas';
       const word = 'baann';
       const expectedMoves = [
@@ -66,7 +65,7 @@ export default function validMoves() {
       expect(foundMoves).to.be.an('array');
       expect([...mismatchedMoves]).to.be.empty;
     });
-    it('quickly finds moves for normal board', function () {
+    test('quickly finds moves for normal board', () => {
       randomWords.map((word) => {
         const foundMoves = getValidMovesFromWord(randomBoard, word);
 
@@ -75,7 +74,7 @@ export default function validMoves() {
         foundMoves.map(move => expect(getWordFromBoardPositions(randomBoard, move)).to.equal(word));
       });
     });
-    it('quickly finds moves for repetetive board', function () {
+    test('quickly finds moves for repetetive board', () => {
       inefficientWords.map((word) => {
         const foundMoves = getValidMovesFromWord(inefficientBoard, word);
 
@@ -83,7 +82,7 @@ export default function validMoves() {
         foundMoves.map(move => expect(getWordFromBoardPositions(inefficientBoard, move)).to.equal(word));
       });
     });
-    it('finds all valid moves for complex board', function () {
+    test('finds all valid moves for complex board', () => {
       const board = 'abcdeabcdeabcdeabcdeabcde';
       const word = 'bad';
       const expectedMoves = [
@@ -220,4 +219,3 @@ export default function validMoves() {
       expect([...mismatchedMoves]).to.be.empty;
     });
   });
-}

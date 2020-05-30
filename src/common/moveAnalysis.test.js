@@ -1,4 +1,3 @@
-/* eslint-disable no-unreachable */
 /* eslint-disable arrow-body-style, no-unused-expressions, func-names, prefer-arrow-callback */
 import { expect } from 'chai';
 
@@ -40,8 +39,7 @@ describe('moveAnalysis', () => {
     expect(foundRankedMoves).to.be.an('array');
     expect([...mismatchedMoves]).to.be.empty;
   });
-  test('finds correct ranked moves for complex board', () => {
-    throw new 'nope'();
+  test.skip('finds correct ranked moves for complex board', () => {
     this.timeout(30000);
     const board = 'oepkyluanpdmcqxnysmgojrht';
 
@@ -59,8 +57,7 @@ describe('moveAnalysis', () => {
     expect(foundRankedMoves).to.be.an('array');
     expect([...mismatchedMoves]).to.be.empty;
   });
-  test('finds correct ranked moves without duplicates', () => {
-    throw new 'nope'();
+  test.skip('finds correct ranked moves without duplicates', () => {
     this.timeout(30000);
     const board = 'mdwbuwbrhvdgnuupbqhmadubt';
 

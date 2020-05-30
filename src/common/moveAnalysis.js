@@ -59,6 +59,7 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
       // noticeCurrentMaxScore(currentWordScorekeeper.score, moveHashtable);
     }
     if (bestNextScore > alpha) {
+      // eslint-disable-next-line no-param-reassign
       alpha = bestNextScore;
       // noticeCurrentMaxScore(currentWordScorekeeper.score, moveHashtable);
     }
@@ -84,6 +85,7 @@ function getBestMovesToWin(board, validWords, moveHashtable, noticeCurrentMaxSco
     return moveAScore > moveBScore ? -1 : 1;
   };
 
+  // eslint-disable-next-line array-callback-return
   validWords.map((word) => {
     movesForWords[word] = getValidMovesFromWord(board, word)
       .map((move) => ({ word, move }))
@@ -150,6 +152,7 @@ function getScoreThreadFromMoveHashtable(bestScore, moveHashtable) {
   return moveStream;
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export function getWinningMoves(board, validWords, noticeBetterMove) {
   const moveHashtable = [];
   // console.log('Getting best moves to win');

@@ -44,6 +44,7 @@ export function applyMoveToBoard(boardState, currentMove, isPlayer1) {
     // Current move contains this board position
     const isPartOfCurrentMove = currentMove.includes(currentPosition);
     // Apply new owner of board position
+    // eslint-disable-next-line no-nested-ternary
     return !isPartOfCurrentMove ? currentPositionValue
       : isPlayer1 ? LetterState.Player1
         : LetterState.Player2;

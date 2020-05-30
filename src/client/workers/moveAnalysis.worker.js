@@ -20,6 +20,7 @@ function start(board, words) {
   // postMessage(JSON.stringify({ board, moveStream }));
 }
 
+// eslint-disable-next-line no-restricted-globals
 self.onmessage = (e) => {
   const { board, validWords } = JSON.parse(e.data);
   if (board && validWords) {

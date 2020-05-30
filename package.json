@@ -37,7 +37,6 @@
     "react-dom": "^16.3.0",
     "react-router-dom": "^4.2.2",
     "express": "^4.17.1",
-    "superagent": "^3.8.3",
     "webpack": "2.2.1",
     "webpack-dev-server": "3.1.11",
     "webpack-node-externals": "^1.5.4",
@@ -53,6 +52,7 @@
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.9.0",
     "mocha": "^3.2.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "prop-types": "^15.7.2"
   }
 }

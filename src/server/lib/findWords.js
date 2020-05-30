@@ -12,7 +12,9 @@ export function findWordsInTrie(letters) {
   const checkRemaining = (knownLetters, remLetters) => {
     let curWord = '';
     let checkedLetterCache = '';
+    // eslint-disable-next-line no-plusplus
     for (let i = 0, l = remLetters.length; i < l; i++) {
+      // eslint-disable-next-line no-continue
       if (checkedLetterCache.indexOf(remLetters[i]) !== -1) { continue; }
       checkedLetterCache += remLetters[i];
       curWord = knownLetters + remLetters[i];

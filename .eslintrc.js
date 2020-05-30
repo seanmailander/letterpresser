@@ -1,5 +1,6 @@
 module.exports = {
   extends: 'airbnb',
+  env: { jest: true },
   rules: {
     'jsx-quotes': [2, 'prefer-single'],
     'react/jsx-curly-spacing': [2, 'always'],

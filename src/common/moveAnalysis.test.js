@@ -1,26 +1,26 @@
 /* eslint-disable arrow-body-style, no-unused-expressions, func-names, prefer-arrow-callback */
 import { expect } from 'chai';
 
-import { getValidMovesFromWord, getWordFromBoardPositions } from '../boardOperations';
-import { symmetricDifference, getCanonicalFromMove } from '../util';
-import { randomGameBoard } from '../mockData';
-import { findWordsInFlatList } from '../../server/lib/findWords';
-import { getWinningMoves } from '../moveAnalysis';
-import { getWordsForGame } from '../../server/services/letterpresser';
+import { getValidMovesFromWord, getWordFromBoardPositions } from './boardOperations';
+import { symmetricDifference, getCanonicalFromMove } from './util';
+import { randomGameBoard } from './mockData';
+import { findWordsInFlatList } from '../server/lib/findWords';
+import { getWinningMoves } from './moveAnalysis';
+import { getWordsForGame } from '../server/services/letterpresser';
 
 function convertMovesToCanonicalSet(moves) {
   return new Set(...[moves.map(getCanonicalFromMove)]);
 }
 
-export default function moveAnalysis() {
+
   const randomBoard = randomGameBoard();
   const randomWords = findWordsInFlatList(randomBoard);
 
   const inefficientBoard = 'abcdeabcdeabcdeabcdeabcde';
   const inefficientWords = findWordsInFlatList(inefficientBoard);
 
-  describe('moveAnalysis', function () {
-    it('finds correct ranked moves for simple board', function () {
+  describe('moveAnalysis', () => {
+    test('finds correct ranked moves for simple board', () => {
       const board = 'aabcqqqqqqqqqqqqqqqqqqqqq';
       const validWords = getWordsForGame(board);
 
@@ -39,7 +39,7 @@ export default function moveAnalysis() {
       expect(foundRankedMoves).to.be.an('array');
       expect([...mismatchedMoves]).to.be.empty;
     });
-    it('finds correct ranked moves for complex board', function () {
+    test('finds correct ranked moves for complex board', () => {
       throw new "nope";
       this.timeout(30000);
       const board = 'oepkyluanpdmcqxnysmgojrht';
@@ -57,7 +57,7 @@ export default function moveAnalysis() {
       expect(foundRankedMoves).to.be.an('array');
       expect([...mismatchedMoves]).to.be.empty;
     });
-    it('finds correct ranked moves without duplicates', function () {
+    test('finds correct ranked moves without duplicates', () => {
       throw new "nope";
       this.timeout(30000);
       const board = 'mdwbuwbrhvdgnuupbqhmadubt';
@@ -82,4 +82,4 @@ export default function moveAnalysis() {
       expect([...mismatchedMoves]).to.be.empty;
     });
   });
-}
+

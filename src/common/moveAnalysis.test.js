@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable arrow-body-style, no-unused-expressions, func-names, prefer-arrow-callback */
 import { expect } from 'chai';
 

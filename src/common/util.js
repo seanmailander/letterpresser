@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export function range(size) { return [...Array(size).keys()]; }
 
 export function randBetween(min, max) {
@@ -28,6 +26,7 @@ export function uniqBy(a, key) {
   const seen = {};
   return a.filter((item) => {
     const k = key(item);
+    // eslint-disable-next-line no-return-assign
     return seen[k] ? false : (seen[k] = true);
   });
 }
@@ -36,6 +35,7 @@ export function arrayIsUnique(arr) {
   return arr.length === new Set(arr).size;
 }
 
+/* eslint-disable */
 function k_combinations(set, k) {
   let i; let j; let combs; let head; let
     tailcombs;
@@ -93,14 +93,17 @@ function k_combinations(set, k) {
   }
   return combs;
 }
+/* eslint-enable */
 
 export function cartesianProductWithoutDuplicates(arrayOfArrays, canonicalForm) {
   const letterCounts = arrayOfArrays
     .reduce((result, value) => {
       const key = canonicalForm(value);
       if (result[key]) {
+        // eslint-disable-next-line no-param-reassign,no-plusplus
         result[key].count++;
       } else {
+        // eslint-disable-next-line no-param-reassign
         result[key] = {
           value,
           count: 1,
@@ -126,7 +129,7 @@ export function cartesianProductWithoutDuplicates(arrayOfArrays, canonicalForm) 
   // TODO: make this faster to resolve correctly-ordered words
   return results.map((move) => {
     const mappedLetters = arrayOfArrays.map((letterPositions) => {
-      const firstMatchingLetter = (letter) => _.indexOf(move, letter);
+      const firstMatchingLetter = (letter) => move.indexOf(letter);
       const matchedLetters = letterPositions.map(firstMatchingLetter).filter((index) => index > -1);
       const removedLetter = move.splice(matchedLetters.shift(), 1);
       return removedLetter;

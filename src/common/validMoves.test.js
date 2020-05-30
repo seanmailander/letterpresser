@@ -71,7 +71,7 @@ describe('generateValidMoves', () => {
 
       expect(foundMoves).to.be.an('array');
 
-      foundMoves.map((move) => expect(getWordFromBoardPositions(randomBoard, move)).to.equal(word));
+      return foundMoves.map((move) => expect(getWordFromBoardPositions(randomBoard, move)).to.equal(word));
     });
   });
   test('quickly finds moves for repetetive board', () => {
@@ -79,7 +79,7 @@ describe('generateValidMoves', () => {
       const foundMoves = getValidMovesFromWord(inefficientBoard, word);
 
       expect(foundMoves).to.be.an('array');
-      foundMoves.map((move) => expect(getWordFromBoardPositions(inefficientBoard, move)).to.equal(word));
+      return foundMoves.map((move) => expect(getWordFromBoardPositions(inefficientBoard, move)).to.equal(word));
     });
   });
   test('finds all valid moves for complex board', () => {

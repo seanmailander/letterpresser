@@ -16,9 +16,9 @@ describe('findWordsInTrie', () => {
 
     const flattenedWords = [].concat(
       ...Object.keys(foundWords)
-          .filter(wordLength => wordLength >= 3)
-          .sort(wordLength => wordLength)
-          .map(wordLength => foundWords[wordLength]),
+        .filter((wordLength) => wordLength >= 3)
+        .sort((wordLength) => wordLength)
+        .map((wordLength) => foundWords[wordLength]),
     );
 
     expect(flattenedWords).to.have.length.of.at.least(1);

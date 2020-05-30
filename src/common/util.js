@@ -16,7 +16,7 @@ export function flatten(arrayToFlatten) {
 
 export function cartesianProduct(arrayOfArrays) {
   const initialValue = [[]];
-  const reducer = (a, b) => flatten(a.map(x => b.map(y => x.concat(y))));
+  const reducer = (a, b) => flatten(a.map((x) => b.map((y) => x.concat(y))));
   return arrayOfArrays.reduce(reducer, initialValue);
 }
 
@@ -37,7 +37,8 @@ export function arrayIsUnique(arr) {
 }
 
 function k_combinations(set, k) {
-  var i, j, combs, head, tailcombs;
+  let i; let j; let combs; let head; let
+    tailcombs;
 
   // There is no way to take e.g. sets of 5 elements from
   // a set of 4.
@@ -111,23 +112,22 @@ export function cartesianProductWithoutDuplicates(arrayOfArrays, canonicalForm) 
 
   const letterCountsArray = [].concat(
     ...Object.keys(letterCounts)
-      .map(key => letterCounts[key])
-      .map(letterGroup => [k_combinations(letterGroup.value, letterGroup.count)]),
+      .map((key) => letterCounts[key])
+      .map((letterGroup) => [k_combinations(letterGroup.value, letterGroup.count)]),
   );
 
   const results = letterCountsArray
     .reduce((result, letterGroup) => result
-      .map(existingResults => letterGroup
-        .map(newLetter => existingResults.concat(newLetter)),
-    )
+      .map((existingResults) => letterGroup
+        .map((newLetter) => existingResults.concat(newLetter)))
       .reduce((s, t) => s.concat(t)),
     [[]]);
 
   // TODO: make this faster to resolve correctly-ordered words
   return results.map((move) => {
     const mappedLetters = arrayOfArrays.map((letterPositions) => {
-      const firstMatchingLetter = letter => _.indexOf(move, letter);
-      const matchedLetters = letterPositions.map(firstMatchingLetter).filter(index => index > -1);
+      const firstMatchingLetter = (letter) => _.indexOf(move, letter);
+      const matchedLetters = letterPositions.map(firstMatchingLetter).filter((index) => index > -1);
       const removedLetter = move.splice(matchedLetters.shift(), 1);
       return removedLetter;
     });
@@ -135,5 +135,5 @@ export function cartesianProductWithoutDuplicates(arrayOfArrays, canonicalForm) 
   });
 }
 
-export function difference(setA, setB) { return new Set([...setA].filter(x => !setB.has(x))); }
+export function difference(setA, setB) { return new Set([...setA].filter((x) => !setB.has(x))); }
 export function symmetricDifference(setA, setB) { return new Set([...[...difference(setA, setB)], ...[...difference(setB, setA)]]); }

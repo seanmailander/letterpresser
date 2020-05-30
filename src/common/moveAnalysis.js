@@ -1,4 +1,6 @@
-import { isGameOver, boardAnalysis, applyMoveToBoard, getValidMovesFromWord, StartingBoardState } from './boardOperations';
+import {
+  isGameOver, boardAnalysis, applyMoveToBoard, getValidMovesFromWord, StartingBoardState,
+} from './boardOperations';
 import { range } from './util';
 
 const maxDepth = 20;
@@ -37,13 +39,13 @@ function negaMax(currentBoard, depth, color, alpha, beta, playedWords, getMoves,
       remainingValidWords,
       currentWordScorekeeper.moves,
       noticeCurrentMaxScore,
-      );
+    );
 
     lastFive.unshift(bestNextScore);
     if (lastFive.length > 2) {
       lastFive.pop();
     }
-    if (lastFive.every(score => score < currentMax)) {
+    if (lastFive.every((score) => score < currentMax)) {
       return true;
     }
     // store this move and score
@@ -84,7 +86,7 @@ function getBestMovesToWin(board, validWords, moveHashtable, noticeCurrentMaxSco
 
   validWords.map((word) => {
     movesForWords[word] = getValidMovesFromWord(board, word)
-      .map(move => ({ word, move }))
+      .map((move) => ({ word, move }))
       .sort(sortWords);
   });
 
@@ -102,7 +104,7 @@ function getBestMovesToWin(board, validWords, moveHashtable, noticeCurrentMaxSco
     const returningMoves = returningValidWords
       .slice(0, 20)
       // Return valid moves
-      .map(word => movesForWords[word].slice(0, 1))
+      .map((word) => movesForWords[word].slice(0, 1))
       // Flatten moves down
       .reduce((a, b) => a.concat(b), []);
 
@@ -151,7 +153,7 @@ function getScoreThreadFromMoveHashtable(bestScore, moveHashtable) {
 export function getWinningMoves(board, validWords, noticeBetterMove) {
   const moveHashtable = [];
   // console.log('Getting best moves to win');
-  let bestMaxYet = {};
+  const bestMaxYet = {};
 
   const noticeCurrentMaxScore = (score, currentMoveHashtable, depth) => {
     // console.log('noticing current max');
@@ -171,7 +173,7 @@ export function getWinningMoves(board, validWords, noticeBetterMove) {
     getScoreThreadFromMoveHashtable(score, tempMoveHashTable).map((move, index) => noticeBetterMove(index, move));
   };
   const bestMovesToWin = getBestMovesToWin(board, validWords, moveHashtable, noticeCurrentMaxScore);
-  
+
   // console.log('found moves');
   // console.log(bestMovesToWin);
   // console.log(moveHashtable);

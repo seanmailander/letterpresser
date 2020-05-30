@@ -1,10 +1,9 @@
 const MoveAnalysisWorker = require('worker-loader?name=moveAnalysis.worker.js!./moveAnalysis.worker');
 
 
-
 export function getBoardOperationsWorker(board, validWords, handleMoveUpdate) {
   // Build a worker
-  const worker = new MoveAnalysisWorker;
+  const worker = new MoveAnalysisWorker();
 
   // Listen for incoming messages
   worker.onmessage = (e) => {

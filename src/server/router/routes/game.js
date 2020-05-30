@@ -6,7 +6,7 @@ import { getWordsForGame, getRandomGameBoard } from '../../services/letterpresse
 const router = express.Router();
 
 router.get('/randomGame', (req, res, next) => {
-    res.json(getRandomGameBoard());
+  res.json(getRandomGameBoard());
 });
 
 router.get('/wordsForGame', (req, res, next) => {

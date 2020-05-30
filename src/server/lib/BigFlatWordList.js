@@ -31,6 +31,6 @@ export function convertWordsToFlatWordList(words) {
 export function getWordsForBoardFromDictionary(board, dictionary) {
   const boardSet = getCanonical(board);
   return dictionary
-    .filter(struct => isSubset(boardSet, struct[1]))
-    .map(struct => struct[0]);
+    .filter((struct) => isSubset(boardSet, struct[1]))
+    .map((struct) => struct[0]);
 }

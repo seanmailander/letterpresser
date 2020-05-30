@@ -41,7 +41,7 @@
     "superagent": "^3.4.1",
     "superagent-bluebird-promise": "^4.1.0",
     "webpack": "2.2.1",
-    "webpack-dev-server": "2.3.0",
+    "webpack-dev-server": "3.1.11",
     "webpack-node-externals": "^1.5.4",
     "worker-loader": "^0.8.0"
   },

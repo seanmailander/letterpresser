@@ -1,5 +1,6 @@
 import { getCanonical } from '../../common/util.js';
 
+/* eslint-disable */
 function isSubset(iStr, jStr) {
   let i = 0;
   let j = 0;
@@ -20,6 +21,7 @@ function isSubset(iStr, jStr) {
   }
   return j === jLength;
 }
+/* eslint-enable */
 
 export function convertWordsToFlatWordList(words) {
   return words.map((line) => {

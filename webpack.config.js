@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
@@ -31,13 +30,6 @@ module.exports = {
       extensions: ['.js', '.jsx'],
     },
     plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks(module) {
-          // this assumes your vendor imports exist in the node_modules directory
-          return module.context && module.context.indexOf('node_modules') !== -1;
-        },
-      }),
       new CopyWebpackPlugin([
         // {output}/file.txt
         { from: './src/client/assets', to: './' },

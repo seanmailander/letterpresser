@@ -10,10 +10,10 @@ const streamPipeline = util.promisify(stream.pipeline);
 const url = 'https://www.wordgamedictionary.com/sowpods/download/sowpods.txt';
 const pathToFile = './data/sowpods.txt';
 
-async function download (pathToFile) {
-  const response = await fetch(url)
-  if (!response.ok) throw new Error(`unexpected response ${response.statusText}`)
-  await streamPipeline(response.body, fs.createWriteStream(pathToFile));
+async function download(filepath) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`unexpected response ${response.statusText}`);
+  await streamPipeline(response.body, fs.createWriteStream(filepath));
 
   getFlatWordList();
 }

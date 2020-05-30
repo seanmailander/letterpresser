@@ -1,5 +1,6 @@
 import { getCanonical } from '../../common/util.js';
 
+/* eslint-disable */
 function isSubset(iStr, jStr) {
   let i = 0;
   let j = 0;
@@ -20,6 +21,7 @@ function isSubset(iStr, jStr) {
   }
   return j === jLength;
 }
+/* eslint-enable */
 
 export function convertWordsToFlatWordList(words) {
   return words.map((line) => {
@@ -31,6 +33,6 @@ export function convertWordsToFlatWordList(words) {
 export function getWordsForBoardFromDictionary(board, dictionary) {
   const boardSet = getCanonical(board);
   return dictionary
-    .filter(struct => isSubset(boardSet, struct[1]))
-    .map(struct => struct[0]);
+    .filter((struct) => isSubset(boardSet, struct[1]))
+    .map((struct) => struct[0]);
 }

@@ -13,7 +13,8 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "now-build": "mkdir -p data && node --experimental-modules ./src/server/lib/retrieveData.js",
+    "getData": "mkdir -p data && node --experimental-modules ./src/server/lib/retrieveData.js",
+    "now-build": "npm run getData",
     "postnow-build": "webpack",
     "dev": "node --experimental-modules \"./src/server/server.js\"",
     "lint": "eslint ./src",
@@ -22,7 +23,8 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -41,7 +43,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
     "jest": "^26.0.1",
-    "node-fetch": "^2.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from 'fs';
 import vm from 'vm';
 

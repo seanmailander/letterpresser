@@ -1,10 +1,11 @@
+// eslint-disable-next-line import/no-webpack-loader-syntax
 const MoveAnalysisWorker = require('worker-loader?name=moveAnalysis.worker.js!./moveAnalysis.worker');
 
 
-
+// eslint-disable-next-line import/prefer-default-export
 export function getBoardOperationsWorker(board, validWords, handleMoveUpdate) {
   // Build a worker
-  const worker = new MoveAnalysisWorker;
+  const worker = new MoveAnalysisWorker();
 
   // Listen for incoming messages
   worker.onmessage = (e) => {

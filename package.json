@@ -13,7 +13,8 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "now-build": "mkdir -p data && node --experimental-modules ./src/server/lib/retrieveData.js",
+    "getData": "mkdir -p data && node --experimental-modules ./src/server/lib/retrieveData.js",
+    "now-build": "npm run getData",
     "postnow-build": "webpack",
     "dev": "node --experimental-modules \"./src/server/server.js\"",
     "lint": "eslint ./src",

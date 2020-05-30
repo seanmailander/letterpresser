@@ -15,9 +15,10 @@
     "build": "webpack",
     "now-build": "mkdir -p data && node --experimental-modules ./src/server/lib/retrieveData.js",
     "postnow-build": "webpack",
-    "watch": "webpack -w",
     "dev": "node --experimental-modules \"./src/server/server.js\"",
-    "test": "jest"
+    "lint": "eslint ./src",
+    "test": "jest",
+    "watch": "webpack -w"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -27,6 +28,7 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
